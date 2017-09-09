@@ -1,0 +1,378 @@
+[
+    {
+        "id": "6c9e7200.49432",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "OutputVar",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 500,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1e76019f.c719c6",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 125.5,
+        "y": 80.25,
+        "wires": [
+            [
+                "f2734e0c.599ad8"
+            ]
+        ]
+    },
+    {
+        "id": "f2734e0c.599ad8",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "Variable",
+        "func": "/* comment / describe your program */\nvar myname = \"Markus\";\nvar mynumber = 100;\nvar mynumber2 = 71.10;\nvar mybool = true;\n\n//When adding number to string all becomes a string\n\nnode.warn(\"String = \"+myname); \nnode.warn(\"Number1 = \"+mynumber2 + mynumber); \nnode.warn(\"Boolean = \"+mybool); //string\n\nmsg.payload = myname; //boolean \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "6c9e7200.49432"
+            ]
+        ]
+    },
+    {
+        "id": "65992cd2.e12a24",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "outputIF",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 500,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "500c5b9b.29c43c",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 125.5,
+        "y": 300.25,
+        "wires": [
+            [
+                "824a3565.afad88"
+            ]
+        ]
+    },
+    {
+        "id": "824a3565.afad88",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "IF",
+        "func": "/* comment / describe your program */\nvar i = 1;\nvar a = 5;\nvar answer;\nif(a>i)\n{\n    answer=true;\n}else{\n     answer=false;\n    \n}\n\nnode.warn(\"is a > i = \"+answer);\nmsg.payload = answer;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 300,
+        "wires": [
+            [
+                "65992cd2.e12a24"
+            ]
+        ]
+    },
+    {
+        "id": "1890680d.5a6c18",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "outputWHILE",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 520,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "dc614186.9651b",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 125.5,
+        "y": 360.25,
+        "wires": [
+            [
+                "cdcf5d1e.9ce67"
+            ]
+        ]
+    },
+    {
+        "id": "cdcf5d1e.9ce67",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "WHILE",
+        "func": "/* comment / describe your program */\nvar i = 1;\nvar a = 5;\n\n\nwhile (a > i)\n{\n i++;\n node.warn(\" i = \"+i);\n}\n\n\nmsg.payload = i;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 360,
+        "wires": [
+            [
+                "1890680d.5a6c18"
+            ]
+        ]
+    },
+    {
+        "id": "94faeb99.1ed6a",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "outputFOR",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 510,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "96c3f5b1.47ee2",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 125.5,
+        "y": 420.25,
+        "wires": [
+            [
+                "f66123c6.bb9a9"
+            ]
+        ]
+    },
+    {
+        "id": "f66123c6.bb9a9",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "FOR",
+        "func": "/* comment / describe your program */\nvar i = 1;\nvar a = 5;\n\nfor(i=0;i<10;i++)\n{\n i++;\n node.warn(\" i = \"+i);\n}\n\n\nmsg.payload = i;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 420,
+        "wires": [
+            [
+                "94faeb99.1ed6a"
+            ]
+        ]
+    },
+    {
+        "id": "7f88af23.cf511",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "OutputHex",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 510,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "7b35171f.3f152",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 125.5,
+        "y": 560.25,
+        "wires": [
+            [
+                "6ad2bec1.4ce408"
+            ]
+        ]
+    },
+    {
+        "id": "6ad2bec1.4ce408",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "HexDecBin",
+        "func": "/* comment / describe your program */\n\nvar hex = 0xAC;\nvar bin = 0b1000; \n\n// conversion via toString(base) base = 10,2,16 etc\n\n\n\n\nnode.warn(\"Hex = \"+hex.toString(16)); \nnode.warn(\"Dec = \"+hex.toString(10)); \nnode.warn(\"Bin = \"+hex.toString(2)); \nnode.warn(bin);\nmsg.payload = hex; //boolean \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 330,
+        "y": 560,
+        "wires": [
+            [
+                "7f88af23.cf511"
+            ]
+        ]
+    },
+    {
+        "id": "4736deee.559df",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "OutputObj",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 510,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "6c26bc0f.af981c",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 105.5,
+        "y": 140.25,
+        "wires": [
+            [
+                "ae12b4e4.0cebb8"
+            ]
+        ]
+    },
+    {
+        "id": "ae12b4e4.0cebb8",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "Objects",
+        "func": "/* comment / describe your program */\nvar myname = \"Markus\"\nvar myJson = {\n    \"lable\":\"value\",\n    \"MyName\":myname\n    \n}\n\nmyJson.NewLabel = \"SNP\";\n\n// comment\n\nnode.warn(\"String = \"+myname); \n\nmsg.payload = myJson; //boolean \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "4736deee.559df"
+            ]
+        ]
+    },
+    {
+        "id": "360c73f6.60d1fc",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "OutputMix",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 510,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "8dba4184.cc3f6",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 125.5,
+        "y": 200.25,
+        "wires": [
+            [
+                "5ef486fc.3d2928"
+            ]
+        ]
+    },
+    {
+        "id": "5ef486fc.3d2928",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "Mix",
+        "func": "/* comment / describe your program */\nvar myname = \"Markus\";\nvar mynumber = 100;\nvar hex = 0xFF;\nvar mynumber2 = 71.10;\nvar mybool = true;\nvar myJson = {\n    \"lable\":\"value\",\n    \"MyName\":myname\n    \n}\n\nmyJson.NewLabel = \"SNP\";\n\nvar myarray = [];\nmyarray[0]=\"c\";\nmyarray[1]=\"a\";\nmyarray[2]=99;\n\n// comment\nnode.warn(\"String = \"+myname); //Wh\nnode.warn(\"String2 = \"+mynumber); //When adding number to string all becomes a string\nnode.warn(\"Number1 = \"+mynumber2 + mynumber); \nnode.warn(\"Boolean = \"+mybool); //string\nnode.warn(\"Hex = \"+hex); \nnode.warn(hex.toString(16)); \nnode.warn(\"MyArray = \"+myarray); \n\nmsg.payload = myJson; //boolean \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 200,
+        "wires": [
+            [
+                "360c73f6.60d1fc"
+            ]
+        ]
+    },
+    {
+        "id": "e59a504c.f5baa8",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "outputFOR",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 510,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "ce70f599.23398",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 125.5,
+        "y": 500.25,
+        "wires": [
+            [
+                "1f4a10ba.a04917"
+            ]
+        ]
+    },
+    {
+        "id": "1f4a10ba.a04917",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "Function",
+        "func": "/* comment / describe your program */\nfunction hello(name)\n{\n\tnode.warn(\"Hello \"+name);\n}\n\nfor(i=0;i<10;i++)\n{\n   hello(\"Markus \"+i);\n}\n\n\n \n\n\n\n\nmsg.payload = i;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 500,
+        "wires": [
+            [
+                "e59a504c.f5baa8"
+            ]
+        ]
+    }
+]
