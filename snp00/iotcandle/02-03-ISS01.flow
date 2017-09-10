@@ -1,0 +1,203 @@
+[
+    {
+        "id": "2d76a5e.a15865a",
+        "type": "template",
+        "z": "5654962e.5c5de",
+        "name": "Space Station Tracker",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "plain",
+        "template": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>Realtime ISS</title>\n        <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />\n        <style type=\"text/css\">\n            html { height: 100% }\n            body { height: 100%; margin: 0; padding: 0 }\n            #map { height: 100% }\n        </style>\n        <script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLoXS1lPMv75OISOZ0GujwAhH1LPlJP4&sensor=false\"></script>\n        <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>\n        <script type=\"text/javascript\">\n            var map, marker, last_latlng;\n\n            function init() {\n                var latlng = new google.maps.LatLng(51.48931, -0.08819);\n                var mapOptions = { center: latlng, zoom: 4, mapTypeId: google.maps.MapTypeId.TERRAIN, disableDefaultUI: false};\n                map = new google.maps.Map(document.getElementById(\"map\"), mapOptions);\n                infoWindow = new google.maps.InfoWindow();\n                maxZoomService = new google.maps.MaxZoomService();\n                map.addListener('click', showMaxZoom);\n                marker = new google.maps.Marker({ position: latlng, map: map, title: \"Lat:\"+latlng, icon: 'https://raw.githubusercontent.com/picklepete/iss/master/saticon.gif' });\n            }\n            google.maps.event.addDomListener(window, 'load', init);\n\n\n\n           function showMaxZoom(e) {\n             maxZoomService.getMaxZoomAtLatLng(e.latLng, function(response) {\n               if (response.status !== google.maps.MaxZoomStatus.OK) {\n                 infoWindow.setContent('Error in MaxZoomService');\n               } else {\n                 infoWindow.setContent(\n                     'The maximum zoom at this location is: ' + response.zoom);\n               }\n               infoWindow.setPosition(e.latLng);\n               infoWindow.open(map);\n             });\n           }\n            function draw_flight_path(latlng) {\n                if(last_latlng == undefined) {\n                    last_latlng = latlng;\n                }\n                flight_path = new google.maps.Polyline({\n                    path: [last_latlng, latlng],\n                    strokeColor: \"#FF0000\",\n                    strokeOpacity: 1.0,\n                    strokeWeight: 2\n                });\n                last_latlng = latlng;\n                flight_path.setMap(map);\n            };\n\n            function get_latest_position() {\n                $.getJSON('http://open-notify-api.herokuapp.com/iss-now.json?callback=?', function(data, status) {\n                    position = data.iss_position;\n var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n// $.getJSON('https://api.wheretheiss.at/v1/satellites/25544/', function(data, status) {\n\n                    var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n                    map.setCenter(latlng);\n                    marker.setPosition(latlng);\n                    marker.setTitle(\"Position: \"+latlng);\n                    var myinfowindow = new google.maps.InfoWindow({\n                        content: \"ISSI\" //<br>Lat:\"+position.latitude+\"<br>Long\"+ position.longitude\n                    });\n marker.addListener('click', function() {\n    myinfowindow.open(map, marker);\n  });\n\n                    draw_flight_path(latlng);\n                    \n                });\n            };\n            setInterval(get_latest_position, 5000);\n        </script>\n    </head>\n    <body>\n        <div id=\"map\"/>\n    </body>\n</html>\n",
+        "output": "str",
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "d1c1596f.9acba8"
+            ]
+        ]
+    },
+    {
+        "id": "900b3669.19da4",
+        "type": "http in",
+        "z": "5654962e.5c5de",
+        "name": "",
+        "url": "/issi",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 103.5,
+        "y": 79.25,
+        "wires": [
+            [
+                "2d76a5e.a15865a"
+            ]
+        ]
+    },
+    {
+        "id": "d1c1596f.9acba8",
+        "type": "http response",
+        "z": "5654962e.5c5de",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 530,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "768a35c.2b49e4c",
+        "type": "http request",
+        "z": "5654962e.5c5de",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "url": "http://open-notify-api.herokuapp.com/iss-now.json",
+        "tls": "",
+        "x": 350,
+        "y": 140,
+        "wires": [
+            [
+                "1385ce51.e85c5a",
+                "34325466.558e54"
+            ]
+        ]
+    },
+    {
+        "id": "1385ce51.e85c5a",
+        "type": "debug",
+        "z": "5654962e.5c5de",
+        "name": "IssiPos",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 530.5,
+        "y": 141.5,
+        "wires": []
+    },
+    {
+        "id": "820bae97.9c8b68",
+        "type": "inject",
+        "z": "5654962e.5c5de",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "10",
+        "crontab": "",
+        "once": false,
+        "x": 118.5,
+        "y": 139.25,
+        "wires": [
+            [
+                "768a35c.2b49e4c"
+            ]
+        ]
+    },
+    {
+        "id": "63cd7771.dd09f",
+        "type": "ui_template",
+        "z": "5654962e.5c5de",
+        "group": "7fc35eba.8805d8",
+        "name": "map",
+        "order": 0,
+        "width": "15",
+        "height": "11",
+        "format": "<div >\n<iframe src=\"/issi\" height=600 width=800>\n  <p>Your browser does not support iframes.</p>\n</iframe>\n</div>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "templateScope": "local",
+        "x": 690,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "18496b00.291e05",
+        "type": "comment",
+        "z": "5654962e.5c5de",
+        "name": "City",
+        "info": "whihte hourse\n60.6994622,-135.3647481,",
+        "x": 110,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "34325466.558e54",
+        "type": "function",
+        "z": "5654962e.5c5de",
+        "name": "DisplayLat",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 530,
+        "y": 220,
+        "wires": [
+            [
+                "875bdbd1.403ee8",
+                "5699db84.cfe58c"
+            ]
+        ]
+    },
+    {
+        "id": "875bdbd1.403ee8",
+        "type": "ui_text",
+        "z": "5654962e.5c5de",
+        "group": "4ef99cc2.56e3b4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "latitude",
+        "format": "{{msg.payload.iss_position.latitude}}",
+        "layout": "row-spread",
+        "x": 721.5,
+        "y": 211.25,
+        "wires": []
+    },
+    {
+        "id": "5699db84.cfe58c",
+        "type": "ui_text",
+        "z": "5654962e.5c5de",
+        "group": "4ef99cc2.56e3b4",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "longitude",
+        "format": "{{msg.payload.iss_position.longitude}}",
+        "layout": "row-spread",
+        "x": 721.5,
+        "y": 271.25,
+        "wires": []
+    },
+    {
+        "id": "7fc35eba.8805d8",
+        "type": "ui_group",
+        "z": "",
+        "name": "ISSI",
+        "tab": "eb6b931f.5f76c8",
+        "order": 2,
+        "disp": true,
+        "width": "17"
+    },
+    {
+        "id": "4ef99cc2.56e3b4",
+        "type": "ui_group",
+        "z": "",
+        "name": "Infos",
+        "tab": "eb6b931f.5f76c8",
+        "order": 3,
+        "disp": true,
+        "width": "8"
+    },
+    {
+        "id": "eb6b931f.5f76c8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "ISSI",
+        "icon": "dashboard"
+    }
+]
