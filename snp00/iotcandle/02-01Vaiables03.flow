@@ -1,0 +1,125 @@
+[
+    {
+        "id": "7f88af23.cf511",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "OutputHex",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 470,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "7b35171f.3f152",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 85.5,
+        "y": 680.25,
+        "wires": [
+            [
+                "6ad2bec1.4ce408"
+            ]
+        ]
+    },
+    {
+        "id": "6ad2bec1.4ce408",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "HexDecBin",
+        "func": "/* comment / describe your program */\n\nvar hex = 0xAC;\nvar bin = 0b1000; \n\n// conversion via toString(base) base = 10,2,16 etc\n\n\n\n\nnode.warn(\"Hex = \"+hex.toString(16)); \nnode.warn(\"Dec = \"+hex.toString(10)); \nnode.warn(\"Bin = \"+hex.toString(2)); \nnode.warn(bin);\nmsg.payload = hex; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 680,
+        "wires": [
+            [
+                "7f88af23.cf511"
+            ]
+        ]
+    },
+    {
+        "id": "e59a504c.f5baa8",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "outputFOR",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 490,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "ce70f599.23398",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 105.5,
+        "y": 540.25,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "29a59b3f.b600bc",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "outputFOR",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 490,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "51a53401.86f63c",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 105.5,
+        "y": 620.25,
+        "wires": [
+            [
+                "88930ee6.7a2c68"
+            ]
+        ]
+    },
+    {
+        "id": "88930ee6.7a2c68",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "MyObject",
+        "func": "/* comment / describe your program */\nvar myname = \"Markus\"\nvar myJson = {\n    \"lable\":\"value\",\n    \"string\":myname\n    \n}\n\nmyJson.age = 48;\nmyJson.firstName = \"Markus\";\nmyJson.lastName = \"van Kempen\";\n\nmsg.payload = myJson; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 620,
+        "wires": [
+            [
+                "29a59b3f.b600bc"
+            ]
+        ]
+    }
+]
