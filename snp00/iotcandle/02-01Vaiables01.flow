@@ -1,0 +1,143 @@
+[
+    {
+        "id": "6c9e7200.49432",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "OutputVar",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 500,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1e76019f.c719c6",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 125.5,
+        "y": 80.25,
+        "wires": [
+            [
+                "f2734e0c.599ad8"
+            ]
+        ]
+    },
+    {
+        "id": "f2734e0c.599ad8",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "Variable",
+        "func": "/* comment / describe your program */\nvar myname = \"Markus\";\nvar mynumber = 100;\nvar mynumber2 = 71.10;\nvar mybool = true;\n\n//When adding number to string all becomes a string\n\nnode.warn(\"String = \"+myname); \nnode.warn(\"Number1 = \"+mynumber2 + mynumber); \nnode.warn(\"Boolean = \"+mybool); \n\nmsg.payload = myname; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 320,
+        "y": 80,
+        "wires": [
+            [
+                "6c9e7200.49432"
+            ]
+        ]
+    },
+    {
+        "id": "4736deee.559df",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "OutputObj",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 510,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "6c26bc0f.af981c",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 105.5,
+        "y": 140.25,
+        "wires": [
+            [
+                "ae12b4e4.0cebb8"
+            ]
+        ]
+    },
+    {
+        "id": "ae12b4e4.0cebb8",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "Objects",
+        "func": "/* comment / describe your program */\nvar myname = \"Markus\"\nvar myJson = {\n    \"lable\":\"value\",\n    \"string\":myname\n    \n}\n\nmyJson.NewLabel = \"SNP\";\n\n\nmsg.payload = myJson; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 140,
+        "wires": [
+            [
+                "4736deee.559df"
+            ]
+        ]
+    },
+    {
+        "id": "360c73f6.60d1fc",
+        "type": "debug",
+        "z": "27e6f3b6.413ff4",
+        "name": "OutputMix",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 510,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "8dba4184.cc3f6",
+        "type": "inject",
+        "z": "27e6f3b6.413ff4",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 125.5,
+        "y": 200.25,
+        "wires": [
+            [
+                "5ef486fc.3d2928"
+            ]
+        ]
+    },
+    {
+        "id": "5ef486fc.3d2928",
+        "type": "function",
+        "z": "27e6f3b6.413ff4",
+        "name": "Mix",
+        "func": "/* comment / describe your program */\nvar myname = \"Markus\";\nvar mynumber = 100;\nvar hex = 0xFF;\nvar mynumber2 = 71.10;\nvar mybool = true;\nvar myJson = {\n    \"lable\":\"value\",\n    \"MyName\":myname\n    \n}\n\nmyJson.NewLabel = \"SNP\";\n\nvar myarray = [];\nmyarray[0]=\"c\";\nmyarray[1]=\"a\";\nmyarray[2]=99;\n\n// comment\nnode.warn(\"String = \"+myname); \nnode.warn(\"String2 = \"+mynumber); //When adding number to string all becomes a string\nnode.warn(\"Number1 = \"+mynumber2 + mynumber); \nnode.warn(\"Boolean = \"+mybool); \nnode.warn(\"Hex = \"+hex); \nnode.warn(hex.toString(16)); \nnode.warn(\"MyArray = \"+myarray); \n\nmsg.payload = myJson;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 200,
+        "wires": [
+            [
+                "360c73f6.60d1fc"
+            ]
+        ]
+    }
+]
