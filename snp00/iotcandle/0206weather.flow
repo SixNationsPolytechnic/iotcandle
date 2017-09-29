@@ -1,0 +1,537 @@
+[
+    {
+        "id": "c75bc896.51646",
+        "type": "weather_insights",
+        "z": "6934ef1.e47ca1",
+        "name": "Brantford",
+        "host": "twcservice.mybluemix.net",
+        "service": "/observations.json",
+        "geocode": "43.1476032,-80.3090849",
+        "units": "m",
+        "language": "",
+        "x": 400,
+        "y": 80,
+        "wires": [
+            [
+                "2a590911.30fffe",
+                "4fd2e7bf.ab4e6"
+            ]
+        ]
+    },
+    {
+        "id": "2a590911.30fffe",
+        "type": "debug",
+        "z": "6934ef1.e47ca1",
+        "name": "Brantford",
+        "active": true,
+        "console": "false",
+        "complete": "observation",
+        "x": 640,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "4287d97a.fb42d",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "IF<10",
+        "func": "if (msg.observation.temp <10)\n    node.send(msg.observation)\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 230,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bf0ab52b.cd9478",
+        "type": "weather_insights",
+        "z": "6934ef1.e47ca1",
+        "name": "Cape Town",
+        "host": "twcservice.mybluemix.net",
+        "service": "/observations.json",
+        "geocode": "-33.9142688,18.0956097",
+        "units": "m",
+        "language": "",
+        "x": 370,
+        "y": 320,
+        "wires": [
+            [
+                "8c5ffe51.9c3e4",
+                "4fd2e7bf.ab4e6"
+            ]
+        ]
+    },
+    {
+        "id": "3a2fd111.f2db06",
+        "type": "inject",
+        "z": "6934ef1.e47ca1",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "c75bc896.51646"
+            ]
+        ]
+    },
+    {
+        "id": "61127293.32a164",
+        "type": "inject",
+        "z": "6934ef1.e47ca1",
+        "name": "Start",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 150,
+        "y": 320,
+        "wires": [
+            [
+                "bf0ab52b.cd9478"
+            ]
+        ]
+    },
+    {
+        "id": "8c5ffe51.9c3e4",
+        "type": "debug",
+        "z": "6934ef1.e47ca1",
+        "name": "joburg",
+        "active": true,
+        "console": "false",
+        "complete": "observation",
+        "x": 370,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "733c72de.d4b034",
+        "type": "ibmiot out",
+        "z": "6934ef1.e47ca1",
+        "authentication": "boundService",
+        "apiKey": "",
+        "outputType": "cmd",
+        "deviceId": "playbulb00",
+        "deviceType": "playbulb",
+        "eventCommandType": "setColor",
+        "format": "json",
+        "data": "msg.payload",
+        "qos": 0,
+        "name": "toPiCandle",
+        "service": "registered",
+        "x": 910,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "9b3b6d8e.408498",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "IF>20",
+        "func": "if (msg.observation.temp <10)\n    node.send(msg.observation)\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 230,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d73be5c7.2d1838",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "IF>10 && <20",
+        "func": "if (msg.observation.temp >10 && msg.observation.temp <20 )\n    node.send(msg.observation)\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "43ab8e3.045c17",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 90,
+        "y": 720,
+        "wires": [
+            [
+                "4287d97a.fb42d",
+                "9b3b6d8e.408498",
+                "d73be5c7.2d1838"
+            ]
+        ]
+    },
+    {
+        "id": "4fd2e7bf.ab4e6",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "CheckAndSet",
+        "func": "var r=0;\nvar g=0;\nvar b=0;\n\nif (msg.observation.temp <=10)\n       b=255; \n\n\nif (msg.observation.temp >=20)\n       r=255; \n       \nif (msg.observation.temp >10 && msg.observation.temp <20 )\n{\n   r=255;\n   g=140;\n    \n}       \n       \n       \nvar newmsg = {\"cmd\" : \"setcolor\",\n\"mode\":\"\",\n\"speed\":\"\",\n\"rr\" : r,\n\"gg\" : g,\n\"bb\" : b\n    \n}\n\n\n\nmsg.payload=newmsg ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 640,
+        "y": 180,
+        "wires": [
+            [
+                "733c72de.d4b034",
+                "66f88f5f.2549b",
+                "a9b19f30.bcc73",
+                "9fb35c91.444588"
+            ]
+        ]
+    },
+    {
+        "id": "103ae60b.fef72a",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "Set to10",
+        "func": "msg.observation={}\nmsg.observation.temp = 10\nmsg.payload = 10;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 240,
+        "y": 160,
+        "wires": [
+            [
+                "4fd2e7bf.ab4e6"
+            ]
+        ]
+    },
+    {
+        "id": "f92ca5aa.a5a298",
+        "type": "inject",
+        "z": "6934ef1.e47ca1",
+        "name": "Cold",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 160,
+        "wires": [
+            [
+                "103ae60b.fef72a"
+            ]
+        ]
+    },
+    {
+        "id": "66f88f5f.2549b",
+        "type": "debug",
+        "z": "6934ef1.e47ca1",
+        "name": "SendToCandle",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 900,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d453116f.e85598",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "Set to 20",
+        "func": "msg.observation={}\nmsg.observation.temp = 20\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "4fd2e7bf.ab4e6"
+            ]
+        ]
+    },
+    {
+        "id": "8945ed70.2017b8",
+        "type": "inject",
+        "z": "6934ef1.e47ca1",
+        "name": "Hot",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 200,
+        "wires": [
+            [
+                "d453116f.e85598"
+            ]
+        ]
+    },
+    {
+        "id": "d1427b5f.4f1128",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "Set to 15",
+        "func": "msg.observation={}\nmsg.observation.temp = 15;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 240,
+        "y": 240,
+        "wires": [
+            [
+                "4fd2e7bf.ab4e6"
+            ]
+        ]
+    },
+    {
+        "id": "91c921dd.2d3398",
+        "type": "inject",
+        "z": "6934ef1.e47ca1",
+        "name": "Warm",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 110,
+        "y": 240,
+        "wires": [
+            [
+                "d1427b5f.4f1128"
+            ]
+        ]
+    },
+    {
+        "id": "61fa28e0.c9f498",
+        "type": "ui_chart",
+        "z": "6934ef1.e47ca1",
+        "name": "",
+        "group": "69fb3eb5.9ba54",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "x": 930,
+        "y": 360,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "de0f1777.f91d18",
+        "type": "ui_gauge",
+        "z": "6934ef1.e47ca1",
+        "name": "",
+        "group": "69fb3eb5.9ba54",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Gauge",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "50",
+        "max": "50",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 930,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a9b19f30.bcc73",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "observation.temp ",
+        "func": "msg.payload = msg.observation.temp \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 670,
+        "y": 340,
+        "wires": [
+            [
+                "de0f1777.f91d18",
+                "61fa28e0.c9f498",
+                "e8467fe2.08661"
+            ]
+        ]
+    },
+    {
+        "id": "e68fbea7.1b41a",
+        "type": "e-mail",
+        "z": "6934ef1.e47ca1",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "secure": true,
+        "name": "snpkid01@gmail.com",
+        "dname": "",
+        "x": 980,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "e8467fe2.08661",
+        "type": "function",
+        "z": "6934ef1.e47ca1",
+        "name": "Create Email if > 10",
+        "func": "\nif (msg.observation.temp >10)\n{\n    msg.topic = \"SNP00 temp update\"\n    msg.payload= \"Hello from Node-RED \"+\"\\nTemperature in \"+msg.observation.obs_name +\" is \"+msg.observation.temp\n\nnode.send(msg)\n}\n//return msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 730,
+        "y": 500,
+        "wires": [
+            [
+                "e68fbea7.1b41a",
+                "6e59a1eb.ab4238"
+            ]
+        ]
+    },
+    {
+        "id": "971cb06d.718b08",
+        "type": "inject",
+        "z": "6934ef1.e47ca1",
+        "name": "Warm",
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "x": 490,
+        "y": 500,
+        "wires": [
+            [
+                "e8467fe2.08661"
+            ]
+        ]
+    },
+    {
+        "id": "b82d7cac.05bbb8",
+        "type": "switch",
+        "z": "6934ef1.e47ca1",
+        "name": "Switch",
+        "property": "observation.temp",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "lt",
+                "v": "10",
+                "vt": "num"
+            },
+            {
+                "t": "gt",
+                "v": "18",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 3,
+        "x": 70,
+        "y": 660,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2f3ce18c.49b8f6",
+        "type": "comment",
+        "z": "6934ef1.e47ca1",
+        "name": "Alternative to IFs",
+        "info": "",
+        "x": 113.125,
+        "y": 588.4375,
+        "wires": []
+    },
+    {
+        "id": "6e59a1eb.ab4238",
+        "type": "debug",
+        "z": "6934ef1.e47ca1",
+        "name": "email",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 850,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "9fb35c91.444588",
+        "type": "ui_text",
+        "z": "6934ef1.e47ca1",
+        "group": "69fb3eb5.9ba54",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "WeatherStation",
+        "format": "{{msg.observation.obs_name}}",
+        "layout": "row-spread",
+        "x": 900,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "69fb3eb5.9ba54",
+        "type": "ui_group",
+        "z": "",
+        "name": "Weather",
+        "tab": "8ac02e54.4e935",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "8ac02e54.4e935",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Weather",
+        "icon": "dashboard"
+    }
+]
