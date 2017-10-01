@@ -154,7 +154,7 @@
         "type": "function",
         "z": "c18c7fe2.7cb75",
         "name": "Create Email",
-        "func": "msg.observation={}\nmsg.observation.temp=5;\n\nif (msg.observation.temp <10)\n{\n    msg.topic = \"SNP01 temp update hello Sunita\"\n    msg.payload= \"Hello from Node-RED \"+\"\\nTemperature in Brantford is \"+msg.observation.temp \n\nnode.send(msg)\n}\n//return msg;",
+        "func": "msg.observation={}\nmsg.observation.temp=5;\n\nif (msg.observation.temp <10)\n{\n    msg.topic = \"SNP01 temp update hello Markus\"\n    msg.payload= \"Hello from Node-RED \"+\"\\nTemperature in Brantford is \"+msg.observation.temp \n\nnode.send(msg)\n}\n//return msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 590,
