@@ -1,6 +1,6 @@
 [
     {
-        "id": "52488605.fa6",
+        "id": "542a309c.22bd",
         "type": "ibmiot out",
         "z": "c18c7fe2.7cb75",
         "authentication": "boundService",
@@ -14,45 +14,45 @@
         "qos": 0,
         "name": "toPiCandle",
         "service": "registered",
-        "x": 890,
-        "y": 240,
+        "x": 1110,
+        "y": 400,
         "wires": []
     },
     {
-        "id": "32b9d27d.ec0776",
+        "id": "a48f064a.b0a6f",
         "type": "function",
         "z": "c18c7fe2.7cb75",
         "name": "CheckAndSet",
         "func": "var r=0;\nvar g=0;\nvar b=0;\n\nif (msg.observation.temp <=10)\n       b=255; \n\n\nif (msg.observation.temp >=20)\n       r=255; \n       \nif (msg.observation.temp >10 && msg.observation.temp <20 )\n{\n   r=255;\n   g=140;\n    \n}       \n       \n       \nvar newmsg = {\"cmd\" : \"setcolor\",\n\"mode\":\"\",\n\"speed\":\"\",\n\"rr\" : r,\n\"gg\" : g,\n\"bb\" : b\n    \n}\n\n\n\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 620,
-        "y": 240,
+        "x": 840,
+        "y": 400,
         "wires": [
             [
-                "52488605.fa6",
-                "25bca456.c59284"
+                "542a309c.22bd",
+                "cb57c158.9afe98"
             ]
         ]
     },
     {
-        "id": "fed89aee.f773b8",
+        "id": "befa5a10.f5508",
         "type": "function",
         "z": "c18c7fe2.7cb75",
         "name": "Set to10",
         "func": "msg.observation={}\nmsg.observation.temp = 10\nmsg.payload = 10;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 220,
-        "y": 220,
+        "x": 440,
+        "y": 380,
         "wires": [
             [
-                "32b9d27d.ec0776"
+                "a48f064a.b0a6f"
             ]
         ]
     },
     {
-        "id": "8c1f21ab.3c7db8",
+        "id": "74a1fe6f.dabe7",
         "type": "inject",
         "z": "c18c7fe2.7cb75",
         "name": "Cold",
@@ -62,28 +62,28 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 90,
-        "y": 220,
+        "x": 310,
+        "y": 380,
         "wires": [
             [
-                "fed89aee.f773b8"
+                "befa5a10.f5508"
             ]
         ]
     },
     {
-        "id": "25bca456.c59284",
+        "id": "cb57c158.9afe98",
         "type": "debug",
         "z": "c18c7fe2.7cb75",
         "name": "SendToCandle",
         "active": true,
         "console": "false",
         "complete": "true",
-        "x": 880,
-        "y": 180,
+        "x": 1100,
+        "y": 340,
         "wires": []
     },
     {
-        "id": "98eee874.1ae65",
+        "id": "ab170289.fd27b",
         "type": "inject",
         "z": "c18c7fe2.7cb75",
         "name": "Hot",
@@ -93,32 +93,30 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 90,
-        "y": 260,
+        "x": 310,
+        "y": 420,
         "wires": [
-            [
-                "efe182b4.a4fa5"
-            ]
+            []
         ]
     },
     {
-        "id": "5ab9b2df.5b1ccc",
+        "id": "8d5e0556.f01618",
         "type": "function",
         "z": "c18c7fe2.7cb75",
         "name": "Set to 15",
         "func": "msg.observation={}\nmsg.observation.temp = 15;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 220,
-        "y": 300,
+        "x": 440,
+        "y": 460,
         "wires": [
             [
-                "32b9d27d.ec0776"
+                "a48f064a.b0a6f"
             ]
         ]
     },
     {
-        "id": "38cc073d.86574",
+        "id": "a97916e4.0152d8",
         "type": "inject",
         "z": "c18c7fe2.7cb75",
         "name": "Warm",
@@ -128,16 +126,16 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 90,
-        "y": 300,
+        "x": 310,
+        "y": 460,
         "wires": [
             [
-                "5ab9b2df.5b1ccc"
+                "8d5e0556.f01618"
             ]
         ]
     },
     {
-        "id": "507245eb.93df1c",
+        "id": "70a88e33.ad9f68",
         "type": "e-mail",
         "z": "c18c7fe2.7cb75",
         "server": "smtp.gmail.com",
@@ -145,28 +143,28 @@
         "secure": true,
         "name": "snpkid01@gmail.com",
         "dname": "",
-        "x": 860,
-        "y": 540,
+        "x": 1080,
+        "y": 700,
         "wires": []
     },
     {
-        "id": "fa11eef5.606f5",
+        "id": "38594192.8bd5e6",
         "type": "function",
         "z": "c18c7fe2.7cb75",
         "name": "Create Email",
         "func": "msg.observation={}\nmsg.observation.temp=5;\n\nif (msg.observation.temp <10)\n{\n    msg.topic = \"SNP01 temp update hello Markus\"\n    msg.payload= \"Hello from Node-RED \"+\"\\nTemperature in Brantford is \"+msg.observation.temp \n\nnode.send(msg)\n}\n//return msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 590,
-        "y": 540,
+        "x": 810,
+        "y": 700,
         "wires": [
             [
-                "507245eb.93df1c"
+                "70a88e33.ad9f68"
             ]
         ]
     },
     {
-        "id": "c70b7195.67c29",
+        "id": "401d399e.5251c8",
         "type": "inject",
         "z": "c18c7fe2.7cb75",
         "name": "Warm",
@@ -176,48 +174,32 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 370,
-        "y": 540,
+        "x": 610,
+        "y": 660,
         "wires": [
             [
-                "fa11eef5.606f5"
+                "38594192.8bd5e6"
             ]
         ]
     },
     {
-        "id": "efe182b4.a4fa5",
-        "type": "function",
-        "z": "c18c7fe2.7cb75",
-        "name": "Set to 25",
-        "func": "msg.observation={}\nmsg.observation.temp = 25\nmsg.payload = 25;\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 220,
-        "y": 260,
-        "wires": [
-            [
-                "32b9d27d.ec0776"
-            ]
-        ]
-    },
-    {
-        "id": "c6e20347.e4f8d8",
+        "id": "2fec66c7.4921e2",
         "type": "comment",
         "z": "c18c7fe2.7cb75",
         "name": "GMAIL credential",
         "info": "username: snpkid01@gmail.com\npassword: snpkids@01",
-        "x": 800,
-        "y": 380,
+        "x": 1020,
+        "y": 540,
         "wires": []
     },
     {
-        "id": "f8266e9c.9fbbc",
+        "id": "b5bae5ec.5f5be8",
         "type": "comment",
         "z": "c18c7fe2.7cb75",
         "name": "Github credential",
         "info": "username: snpkid01@gmail.com\npassword: snpkid01",
-        "x": 831.4285888671875,
-        "y": 419.9999694824219,
+        "x": 1051.4285888671875,
+        "y": 579.9999694824219,
         "wires": []
     }
 ]
