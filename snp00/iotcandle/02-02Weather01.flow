@@ -215,7 +215,7 @@
         "type": "comment",
         "z": "c18c7fe2.7cb75",
         "name": "Github credential",
-        "info": "username: snpkid01@gmail.com\npassword: snpkid",
+        "info": "username: snpkid01@gmail.com\npassword: snpkid01",
         "x": 831.4285888671875,
         "y": 419.9999694824219,
         "wires": []
