@@ -301,7 +301,7 @@
         "type": "function",
         "z": "86a6e1fe.6cd338",
         "name": "IfIss is in Area send email",
-        "func": "\n    msg.topic = \"SNP00 ISS update\"\n    msg.payload= \"Hello from Node-RED ISS is in rea\"+\"\\nTemperature in \"+msg.observation.obs_name +\" is \"+msg.observation.temp\nreturn msg;",
+        "func": "\n    msg.topic = \"ISS update from YOU\"\n    msg.payload= \"Hello from Node-RED ISS is in Area\";\n    return msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 570,
@@ -436,9 +436,9 @@
         "id": "6e818673.38535",
         "type": "comment",
         "z": "86a6e1fe.6cd338",
-        "name": "Use Your GMAIL account",
+        "name": "#2 Use Your GMAIL account",
         "info": "",
-        "x": 910,
+        "x": 920,
         "y": 340,
         "wires": []
     },
@@ -687,6 +687,16 @@
                 "94d9130a.406fa"
             ]
         ]
+    },
+    {
+        "id": "aad047f1.907d1",
+        "type": "comment",
+        "z": "86a6e1fe.6cd338",
+        "name": "#3 Check email text",
+        "info": "",
+        "x": 510,
+        "y": 340,
+        "wires": []
     },
     {
         "id": "f7319c89.50bc",
