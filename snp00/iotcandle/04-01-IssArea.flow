@@ -70,7 +70,7 @@
         "type": "debug",
         "z": "86a6e1fe.6cd338",
         "name": "IssiPos",
-        "active": false,
+        "active": true,
         "console": "false",
         "complete": "payload",
         "x": 530.5,
@@ -172,11 +172,10 @@
         "func": "\nmsg.latitude = msg.payload.iss_position.latitude;\nmsg.longitude = msg.payload.iss_position.longitude;\n\nmsg.payload = \"\"+msg.latitude+\",\"+msg.longitude;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 300,
-        "y": 300,
+        "x": 200,
+        "y": 260,
         "wires": [
             [
-                "fbc91b8e.8f07",
                 "6109ef5a.b9ef7"
             ]
         ]
@@ -203,8 +202,8 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 1270,
-        "y": 680,
+        "x": 1250,
+        "y": 760,
         "wires": []
     },
     {
@@ -229,8 +228,8 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 1270,
-        "y": 640,
+        "x": 1250,
+        "y": 720,
         "wires": []
     },
     {
@@ -255,8 +254,8 @@
         "allCommands": false,
         "allFormats": true,
         "qos": "0",
-        "x": 750,
-        "y": 640,
+        "x": 730,
+        "y": 720,
         "wires": [
             [
                 "d972de48.a346e",
@@ -271,15 +270,14 @@
         "type": "function",
         "z": "86a6e1fe.6cd338",
         "name": "CheckArea",
-        "func": "//top left  corner Latitude: 72.673353, -166.100954\n//bottom right corner Latitude: 42.324097,-67.0917609,7\n\ntopleftlat=   6.03568516;      //Southamerica\ntopleftlon= -97.734375;\n\nbottomrightlat=-46.26799671;  // Southamerica \nbottomrightlon=-23.90625;\n\n\n\nif((msg.longitude > topleftlon && msg.longitude <  bottomrightlon) && (msg.latitude >  bottomrightlat && msg.latitude < bottomrightlat))\n{\n\n\nreturn msg;\n\n}else{\n node.warn(\"Not in the area .. candle off\")   \n}",
+        "func": "//top left  corner Latitude: 72.673353, -166.100954\n//bottom right corner Latitude: 42.324097,-67.0917609,7\n/*\n\nISSI Infos\n\n\nlatitude\n\n-50.21104285308154\n\nlongitude\n\n-53.89517858949471\n\n*/\ntopleftlat=   6.03568516;      //Southamerica\ntopleftlon= -97.734375;\n\nbottomrightlat=-46.26799671;  // Southamerica \nbottomrightlon=-23.90625;\n\n\n//-53.89517858949471 > topleftlon= -97.734375; &&  -53.89517858949471 <bottomrightlon=-23.90625;\n//-50.21104285308154 < topleftlat=   6.03568516 && -50.21104285308154 < bottomrightlon=-23.90625;\n\nif((msg.longitude > topleftlon                 && msg.longitude <  bottomrightlon) \n&& (msg.latitude <  topleftlat                 && msg.latitude < bottomrightlon))\n{\nmsg.inarea = true;\n node.warn(\" ISS in the area .. candle ON\")  \nreturn msg;\n\n}else{\n node.warn(\"Not in the area .. candle off\")  \n msg.inarea = false;\n\nreturn msg;\n}",
         "outputs": 1,
         "noerr": 0,
-        "x": 230,
-        "y": 380,
+        "x": 190,
+        "y": 360,
         "wires": [
             [
-                "9d0e292c.caae88",
-                "ddf9c6bb.741d68"
+                "c39320.97babce"
             ]
         ]
     },
@@ -292,8 +290,8 @@
         "secure": true,
         "name": "yourname@gmail.com",
         "dname": "",
-        "x": 900,
-        "y": 380,
+        "x": 1160,
+        "y": 360,
         "wires": []
     },
     {
@@ -304,8 +302,8 @@
         "func": "\n    msg.topic = \"ISS update from YOU\"\n    msg.payload= \"Hello from Node-RED ISS is in Area\";\n    return msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 570,
-        "y": 380,
+        "x": 890,
+        "y": 360,
         "wires": [
             [
                 "52633f18.df707",
@@ -324,8 +322,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 510,
-        "y": 440,
+        "x": 890,
+        "y": 420,
         "wires": [
             [
                 "9d0e292c.caae88"
@@ -340,20 +338,8 @@
         "active": true,
         "console": "false",
         "complete": "true",
-        "x": 730,
-        "y": 440,
-        "wires": []
-    },
-    {
-        "id": "fbc91b8e.8f07",
-        "type": "debug",
-        "z": "86a6e1fe.6cd338",
-        "name": "Position",
-        "active": true,
-        "console": "false",
-        "complete": "payload",
-        "x": 520,
-        "y": 300,
+        "x": 1110,
+        "y": 420,
         "wires": []
     },
     {
@@ -364,8 +350,8 @@
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":19,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 255\n    \n}\nmsg.eventOrCommandType = \"setCandleMode\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 230,
-        "y": 880,
+        "x": 170,
+        "y": 800,
         "wires": [
             []
         ]
@@ -385,8 +371,8 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 220,
-        "y": 460,
+        "x": 160,
+        "y": 440,
         "wires": [
             [
                 "dfaa14b4.e73cf8"
@@ -408,7 +394,7 @@
         "qos": 0,
         "name": "toPiCandle",
         "service": "registered",
-        "x": 510,
+        "x": 650,
         "y": 520,
         "wires": []
     },
@@ -418,8 +404,8 @@
         "z": "86a6e1fe.6cd338",
         "name": "Check the Code below",
         "info": "",
-        "x": 240,
-        "y": 340,
+        "x": 200,
+        "y": 320,
         "wires": []
     },
     {
@@ -438,8 +424,8 @@
         "z": "86a6e1fe.6cd338",
         "name": "#2 Use Your GMAIL account",
         "info": "",
-        "x": 920,
-        "y": 340,
+        "x": 1180,
+        "y": 320,
         "wires": []
     },
     {
@@ -454,7 +440,7 @@
         "crontab": "",
         "once": false,
         "x": 160,
-        "y": 560,
+        "y": 520,
         "wires": [
             [
                 "dfaa14b4.e73cf8"
@@ -467,8 +453,8 @@
         "z": "86a6e1fe.6cd338",
         "name": "#1 Adjust the candle number",
         "info": "",
-        "x": 540,
-        "y": 480,
+        "x": 920,
+        "y": 460,
         "wires": []
     },
     {
@@ -477,8 +463,8 @@
         "z": "86a6e1fe.6cd338",
         "name": "#1 Adjust the candle number",
         "info": "",
-        "x": 760,
-        "y": 600,
+        "x": 740,
+        "y": 680,
         "wires": []
     },
     {
@@ -486,11 +472,11 @@
         "type": "debug",
         "z": "86a6e1fe.6cd338",
         "name": "InComing",
-        "active": true,
+        "active": false,
         "console": "false",
         "complete": "payload",
-        "x": 740,
-        "y": 700,
+        "x": 720,
+        "y": 780,
         "wires": []
     },
     {
@@ -501,8 +487,8 @@
         "func": "var newmsg ={}\nnewmsg.payload = msg.payload.candleRR\nreturn newmsg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1070,
-        "y": 600,
+        "x": 1050,
+        "y": 680,
         "wires": [
             [
                 "9551ea73.de3fa"
@@ -517,8 +503,8 @@
         "func": "msg.payload = msg.payload.candleGG\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1070,
-        "y": 640,
+        "x": 1050,
+        "y": 720,
         "wires": [
             [
                 "80efaddd.4c8f78"
@@ -533,8 +519,8 @@
         "func": "msg.payload = msg.payload.candleBB\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1070,
-        "y": 680,
+        "x": 1050,
+        "y": 760,
         "wires": [
             [
                 "5dfee199.f8276"
@@ -563,8 +549,8 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 1270,
-        "y": 600,
+        "x": 1250,
+        "y": 680,
         "wires": []
     },
     {
@@ -575,30 +561,12 @@
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 220,
-        "y": 600,
+        "x": 380,
+        "y": 440,
         "wires": [
             [
-                "94d9130a.406fa"
-            ]
-        ]
-    },
-    {
-        "id": "98cee74d.fd9588",
-        "type": "inject",
-        "z": "86a6e1fe.6cd338",
-        "name": "",
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "x": 180,
-        "y": 640,
-        "wires": [
-            [
-                "ea67271c.d2bae"
+                "94d9130a.406fa",
+                "d3843a62.817a78"
             ]
         ]
     },
@@ -610,8 +578,8 @@
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 255,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 250,
-        "y": 680,
+        "x": 190,
+        "y": 600,
         "wires": [
             [
                 "94d9130a.406fa"
@@ -629,8 +597,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 200,
-        "y": 720,
+        "x": 140,
+        "y": 640,
         "wires": [
             [
                 "c44e5f61.7b9ae8"
@@ -645,8 +613,8 @@
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 255\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 220,
-        "y": 780,
+        "x": 160,
+        "y": 700,
         "wires": [
             [
                 "94d9130a.406fa"
@@ -664,8 +632,8 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 180,
-        "y": 820,
+        "x": 120,
+        "y": 740,
         "wires": [
             [
                 "9f8290dd.1fd188"
@@ -680,7 +648,7 @@
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 255,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 250,
+        "x": 370,
         "y": 520,
         "wires": [
             [
@@ -694,8 +662,85 @@
         "z": "86a6e1fe.6cd338",
         "name": "#3 Check email text",
         "info": "",
+        "x": 870,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "c39320.97babce",
+        "type": "switch",
+        "z": "86a6e1fe.6cd338",
+        "name": "In Area ?",
+        "property": "inarea",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "outputs": 2,
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "ddf9c6bb.741d68",
+                "18db30f9.03baf7",
+                "750f17fb.fc2588"
+            ],
+            [
+                "ea67271c.d2bae"
+            ]
+        ]
+    },
+    {
+        "id": "18db30f9.03baf7",
+        "type": "delay",
+        "z": "86a6e1fe.6cd338",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "1",
+        "timeoutUnits": "minutes",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 620,
+        "y": 360,
+        "wires": [
+            [
+                "9d0e292c.caae88"
+            ]
+        ]
+    },
+    {
+        "id": "d3843a62.817a78",
+        "type": "debug",
+        "z": "86a6e1fe.6cd338",
+        "name": "Not in area",
+        "active": true,
+        "console": "false",
+        "complete": "payload",
+        "x": 610,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "750f17fb.fc2588",
+        "type": "debug",
+        "z": "86a6e1fe.6cd338",
+        "name": "In area",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
         "x": 510,
-        "y": 340,
+        "y": 300,
         "wires": []
     },
     {
