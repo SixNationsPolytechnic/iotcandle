@@ -8,7 +8,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "plain",
-        "template": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>Realtime ISS</title>\n        <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />\n        <style type=\"text/css\">\n            html { height: 100% }\n            body { height: 100%; margin: 0; padding: 0 }\n            #map { height: 100% }\n        </style>\n        <script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLoXS1lPMv75OISOZ0GujwAhH1LPlJP4&sensor=false\"></script>\n        <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>\n        <script type=\"text/javascript\">\n            var map, marker, last_latlng;\n\n            function init() {\n                var latlng = new google.maps.LatLng(43.7081784,-79.4609571);//51.48931, -0.08819);\n                var mapOptions = { center: latlng, zoom: 2, mapTypeId: google.maps.MapTypeId.TERRAIN, //zoomControl: true, scaleControl: true}\n          \n           mapTypeControl: true,\n          mapTypeControlOptions: {\n              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,\n              position: google.maps.ControlPosition.TOP_CENTER\n          },\n          zoomControl: true,\n          zoomControlOptions: {\n              position: google.maps.ControlPosition.LEFT_CENTER\n          },\n          scaleControl: true,\n          streetViewControl: true,\n          streetViewControlOptions: {\n              position: google.maps.ControlPosition.LEFT_TOP\n          },\n          fullscreenControl: true\n                }\n\n\n                map = new google.maps.Map(document.getElementById(\"map\"), mapOptions);\n                infoWindow = new google.maps.InfoWindow();\n                maxZoomService = new google.maps.MaxZoomService();\n              //  map.addListener('click', showMaxZoom);\n\n\n                marker = new google.maps.Marker({ position: latlng, map: map, title: \"Lat:\"+latlng, icon: 'https://raw.githubusercontent.com/picklepete/iss/master/saticon.gif' });\n            \n    var rectangle = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516,  -150.734375),\n       new google.maps.LatLng(-60.2679967,-120.90625))\n     });\n   \n   \n  var rectangle1 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516,  -100.734375),\n       new google.maps.LatLng(-60.2679967,-70.90625))\n     });\n   \n\n   \n  var rectangle2 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, -50.734375),\n       new google.maps.LatLng(-60.2679967,-10.90625))\n     });\n   \n\n     var rectangle3 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, 10),\n       new google.maps.LatLng(-60.2679967, 40))\n     });\n     \n          var rectangle4 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85, 90),\n       new google.maps.LatLng(-60, 130))\n     }); \n     \n                \n            }\n            google.maps.event.addDomListener(window, 'load', init);\n\n\n\n           function showMaxZoom(e) {\n             maxZoomService.getMaxZoomAtLatLng(e.latLng, function(response) {\n               if (response.status !== google.maps.MaxZoomStatus.OK) {\n                 infoWindow.setContent('Error in MaxZoomService');\n               } else {\n                 infoWindow.setContent(\n                     'The maximum zoom at this location is: ' + response.zoom);\n               }\n               infoWindow.setPosition(e.latLng);\n               infoWindow.open(map);\n             });\n           }\n            function draw_flight_path(latlng) {\n                if(last_latlng == undefined) {\n                    last_latlng = latlng;\n                }\n                flight_path = new google.maps.Polyline({\n                    path: [last_latlng, latlng],\n                    strokeColor: \"#FF0000\",\n                    strokeOpacity: 1.0,\n                    strokeWeight: 2\n                });\n                last_latlng = latlng;\n                flight_path.setMap(map);\n            };\n\n            function get_latest_position() {\n                $.getJSON('http://open-notify-api.herokuapp.com/iss-now.json?callback=?', function(data, status) {\n                    position = data.iss_position;\n var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n// $.getJSON('https://api.wheretheiss.at/v1/satellites/25544/', function(data, status) {\n\n                    var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n                    map.setCenter(latlng);\n                    marker.setPosition(latlng);\n                    marker.setTitle(\"Position: \"+latlng);\n                    var mycon = \"ISSI<br>Lat:\"+position.latitude+\"<br>Long\"+ position.longitude\n                    var myinfowindow = new google.maps.InfoWindow({\n                        content: mycon\n                    });\n marker.addListener('click', function() {\n    myinfowindow.open(map, marker);\n  });\n\n                    draw_flight_path(latlng);\n                    \n                });\n            };\n            setInterval(get_latest_position, 5000);\n        </script>\n    </head>\n    <body>\n        <div id=\"map\"/>\n    </body>\n</html>\n",
+        "template": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>Realtime ISS</title>\n        <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />\n        <style type=\"text/css\">\n            html { height: 100% }\n            body { height: 100%; margin: 0; padding: 0 }\n            #map { height: 100% }\n        </style>\n        <script type=\"text/javascript\" src=\"//maps.googleapis.com/maps/api/js?key=AIzaSyAFLoXS1lPMv75OISOZ0GujwAhH1LPlJP4&sensor=false\"></script>\n        <script src=\"//googlemaps.github.io/js-map-label/src/maplabel-compiled.js\"></script>\n        <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>\n        <script type=\"text/javascript\">\n            var map, marker, last_latlng;\n\n            function init() {\n                var latlng = new google.maps.LatLng(43.7081784,-79.4609571);//51.48931, -0.08819);\n                var mapOptions = { center: latlng, zoom: 2, mapTypeId: google.maps.MapTypeId.TERRAIN, //zoomControl: true, scaleControl: true}\n          \n           mapTypeControl: true,\n          mapTypeControlOptions: {\n              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,\n              position: google.maps.ControlPosition.TOP_CENTER\n          },\n          zoomControl: true,\n          zoomControlOptions: {\n              position: google.maps.ControlPosition.LEFT_CENTER\n          },\n          scaleControl: true,\n          streetViewControl: true,\n          streetViewControlOptions: {\n              position: google.maps.ControlPosition.LEFT_TOP\n          },\n          fullscreenControl: true\n                }\n\n\n                map = new google.maps.Map(document.getElementById(\"map\"), mapOptions);\n                infoWindow = new google.maps.InfoWindow();\n                maxZoomService = new google.maps.MaxZoomService();\n              //  map.addListener('click', showMaxZoom);\n\n\n                marker = new google.maps.Marker({ position: latlng, map: map, title: \"Lat:\"+latlng, icon: 'https://raw.githubusercontent.com/picklepete/iss/master/saticon.gif' });\n    \n    b1tlx= 85.03568516\n    b1tly= -150.734375\n    b1brx= -60.2679967\n    b1bry= -120.90625\n    var rectangle = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(b1tlx, b1tly),\n       new google.maps.LatLng(b1brx, b1bry))\n     });\n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 1',\n          position: new google.maps.LatLng(b1brx, b1bry),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n     //   mapLabel.set('position', new google.maps.LatLng(34.03, -118.235));\n        \n    b2tlx= 85.03568516\n    b2tly= -100.734375\n    b2brx= -60.2679967\n    b2bry= -70.90625\n   \n  var rectangle1 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(b2tlx, b2tly),\n       new google.maps.LatLng(b2brx, b2bry))\n     });\n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 2',\n          position: new google.maps.LatLng(b2brx, b2bry),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n   \n  var rectangle2 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, -50.734375),\n       new google.maps.LatLng(-60.2679967,-10.90625))\n     });\n   \n       var mapLabel = new MapLabel({\n          text: 'BOX 3',\n          position: new google.maps.LatLng(-60.2679967,-10.90625),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n\n     var rectangle3 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, 10),\n       new google.maps.LatLng(-60.2679967, 40))\n     });\n     \n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 4',\n          position: new google.maps.LatLng(-60.2679967, 40),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n\n          var rectangle4 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85, 90),\n       new google.maps.LatLng(-60, 130))\n     }); \n     \n       \n       var mapLabel = new MapLabel({\n          text: 'BOX 5',\n          position: new google.maps.LatLng(-60, 130),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n         \n            }\n            google.maps.event.addDomListener(window, 'load', init);\n\n\n\n           function showMaxZoom(e) {\n             maxZoomService.getMaxZoomAtLatLng(e.latLng, function(response) {\n               if (response.status !== google.maps.MaxZoomStatus.OK) {\n                 infoWindow.setContent('Error in MaxZoomService');\n               } else {\n                 infoWindow.setContent(\n                     'The maximum zoom at this location is: ' + response.zoom);\n               }\n               infoWindow.setPosition(e.latLng);\n               infoWindow.open(map);\n             });\n           }\n            function draw_flight_path(latlng) {\n                if(last_latlng == undefined) {\n                    last_latlng = latlng;\n                }\n                flight_path = new google.maps.Polyline({\n                    path: [last_latlng, latlng],\n                    strokeColor: \"#FF0000\",\n                    strokeOpacity: 1.0,\n                    strokeWeight: 2\n                });\n                last_latlng = latlng;\n                flight_path.setMap(map);\n            };\n\n            function get_latest_position() {\n                $.getJSON('http://open-notify-api.herokuapp.com/iss-now.json?callback=?', function(data, status) {\n                    position = data.iss_position;\n var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n// $.getJSON('https://api.wheretheiss.at/v1/satellites/25544/', function(data, status) {\n\n                    var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n                    map.setCenter(latlng);\n                    marker.setPosition(latlng);\n                    marker.setTitle(\"Position: \"+latlng);\n                    var mycon = \"ISSI<br>Lat:\"+position.latitude+\"<br>Long\"+ position.longitude\n                    var myinfowindow = new google.maps.InfoWindow({\n                        content: mycon\n                    });\n marker.addListener('click', function() {\n    myinfowindow.open(map, marker);\n  });\n\n                    draw_flight_path(latlng);\n                    \n                });\n            };\n            setInterval(get_latest_position, 5000);\n        </script>\n    </head>\n    <body>\n        <div id=\"map\"/>\n    </body>\n</html>\n",
         "output": "str",
         "x": 320,
         "y": 100,
@@ -161,7 +161,7 @@
         "format": "{{msg.payload.iss_position.longitude}}",
         "layout": "row-spread",
         "x": 720,
-        "y": 240,
+        "y": 220,
         "wires": []
     },
     {
@@ -270,7 +270,7 @@
         "type": "function",
         "z": "86a6e1fe.6cd338",
         "name": "CheckArea",
-        "func": "//Lat = Y Long = X\n/*\nbb is the bounding box, (ix,iy) are its top-left coordinates, and (ax,ay) its bottom-right coordinates. p is the point and (x,y) its coordinates.\n*/\nfunction checkPos(lat,lon,topleftlat,topleftlon,bottomrightlat,bottomrightlon,box)\n{\n    msg.inbox = box;\n  \n    node.warn(\"X topleftlon \"+topleftlon+\"  <= lon \"+lon+ \" res = \"+(   topleftlon <= lon   ))\n    node.warn(\"X lon \"+lon+\"  <= bottomrightlon \"+bottomrightlon+ \" res = \"+(  lon <= bottomrightlon)  )\n\nif( topleftlon <= lon && lon <= bottomrightlon ) {\n    // Point is in bounding box\n\n \n node.warn(\" ISS in the area (\"+box+\").. candle ON\")  \nreturn true;\n\n}else{\n node.warn(\"ISS not in the area  (\"+box+\")... candle OFF\")  \n return  false;\n\n\n}\nreturn  false;\n}\n\n \n  r0LatTl= 85\n  r0LngTl=-150\n\n  r0LatBr= -60\n  r0LngBr= -120\n\n  r1LatTl=  85\n  r1LngTl=-100.\n\n  r1LatBr= -60\n  r1LngBr= -70\n\n\n  r2LatTl=  85\n  r2LngTl= -50\n\n  r2LatBr= -60\n  r2LngBr= -10\n\n  r3LatTl=  85\n  r3LngTl= 10\n\n  r3LatBr= 85\n  r3LngBr= 40\n  \n  r4LatTl= 85\n  r4LngTl= 90\n\n  r4LatBr= -60\n  r4LngBr= 130\n\n/*\n\nlatitude\n\n-50.50472391191916\n\nlongitude\n\n-126.35910070188285\n\n\n\nlatitude = -50.5047239119191\n\nlongitude= -126.35910070188285\n\nmsg.inarea = false;\n node.warn(\"check\")\nres =checkPos(latitude ,longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box 1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n  */  \n\nmsg.inarea = false;\nres =checkPos(msg.latitude ,msg.longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n\n\nres =checkPos(msg.latitude ,msg.longitude,r1LatTl,r1LngTl,r1LatBr,r1LngBr,\"box 2\");\nmsg.inarea = res;\nif(res)\n    return msg;\n    \n \nres =checkPos(msg.latitude ,msg.longitude,r2LatTl,r2LngTl,r2LatBr,r2LngBr,\"box 3\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\nres =checkPos(msg.latitude ,msg.longitude,r3LatTl,r3LngTl,r3LatBr,r3LngBr,\"box 4\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\n\nres =checkPos(msg.latitude ,msg.longitude,r4LatTl,r4LngTl,r4LatBr,r4LngBr,\"box 5\");\nmsg.inarea = res;\nif(res)\n    return msg; \n    \nreturn msg;",
+        "func": "//Lat = Y Long = X\n/*\nbb is the bounding box, (ix,iy) are its top-left coordinates, and (ax,ay) its bottom-right coordinates. p is the point and (x,y) its coordinates.\n*/\nfunction checkPos(lat,lon,topleftlat,topleftlon,bottomrightlat,bottomrightlon,box)\n{\n    msg.inbox = box;\n  \n  //  node.warn(\"X topleftlon \"+topleftlon+\"  <= lon \"+lon+ \" res = \"+(   topleftlon <= lon   ))\n  //  node.warn(\"X lon \"+lon+\"  <= bottomrightlon \"+bottomrightlon+ \" res = \"+(  lon <= bottomrightlon)  )\n\nif( topleftlon <= lon && lon <= bottomrightlon ) {\n    // Point is in bounding box\n\n \n //node.warn(\" ISS in the area (\"+box+\").. candle ON\")  \nreturn true;\n\n}else{\n// node.warn(\"ISS not in the area  (\"+box+\")... candle OFF\")  \n return  false;\n\n\n}\nreturn  false;\n}\n\n \n  r0LatTl= 85\n  r0LngTl=-150\n\n  r0LatBr= -60\n  r0LngBr= -120\n\n  r1LatTl=  85\n  r1LngTl=-100.\n\n  r1LatBr= -60\n  r1LngBr= -70\n\n\n  r2LatTl=  85\n  r2LngTl= -50\n\n  r2LatBr= -60\n  r2LngBr= -10\n\n  r3LatTl=  85\n  r3LngTl= 10\n\n  r3LatBr= 85\n  r3LngBr= 40\n  \n  r4LatTl= 85\n  r4LngTl= 90\n\n  r4LatBr= -60\n  r4LngBr= 130\n\n/*\n\nlatitude\n\n-50.50472391191916\n\nlongitude\n\n-126.35910070188285\n\n\n\nlatitude = -50.5047239119191\n\nlongitude= -126.35910070188285\n\nmsg.inarea = false;\n node.warn(\"check\")\nres =checkPos(latitude ,longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box 1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n  */  \n\nmsg.inarea = false;\nres =checkPos(msg.latitude ,msg.longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n\n\nres =checkPos(msg.latitude ,msg.longitude,r1LatTl,r1LngTl,r1LatBr,r1LngBr,\"box 2\");\nmsg.inarea = res;\nif(res)\n    return msg;\n    \n \nres =checkPos(msg.latitude ,msg.longitude,r2LatTl,r2LngTl,r2LatBr,r2LngBr,\"box 3\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\nres =checkPos(msg.latitude ,msg.longitude,r3LatTl,r3LngTl,r3LatBr,r3LngBr,\"box 4\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\n\nres =checkPos(msg.latitude ,msg.longitude,r4LatTl,r4LngTl,r4LatBr,r4LngBr,\"box 5\");\nmsg.inarea = res;\nif(res)\n    return msg; \n    \nmsg.inbox = \"No area\";    \nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 190,
@@ -278,7 +278,8 @@
         "wires": [
             [
                 "c39320.97babce",
-                "25112d41.94ef9a"
+                "25112d41.94ef9a",
+                "c1aa954d.fd952"
             ]
         ]
     },
@@ -336,7 +337,7 @@
         "type": "debug",
         "z": "86a6e1fe.6cd338",
         "name": "email",
-        "active": true,
+        "active": false,
         "console": "false",
         "complete": "true",
         "x": 1110,
@@ -351,8 +352,8 @@
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":19,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 255\n    \n}\nmsg.eventOrCommandType = \"setCandleMode\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 170,
-        "y": 740,
+        "x": 150,
+        "y": 880,
         "wires": [
             []
         ]
@@ -363,7 +364,7 @@
         "z": "86a6e1fe.6cd338",
         "name": "",
         "pauseType": "delay",
-        "timeout": "4",
+        "timeout": "5",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -559,7 +560,7 @@
         "type": "function",
         "z": "86a6e1fe.6cd338",
         "name": "setCandle=OFF",
-        "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setcolor\";\nmsg.payload=newmsg ;\nreturn msg;",
+        "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 480,
@@ -671,9 +672,8 @@
             [
                 "ddf9c6bb.741d68",
                 "18db30f9.03baf7",
-                "750f17fb.fc2588",
-                "c1aa954d.fd952",
-                "c44e5f61.7b9ae8"
+                "c44e5f61.7b9ae8",
+                "288e9210.4adb96"
             ],
             [
                 "ea67271c.d2bae"
@@ -710,21 +710,9 @@
         "name": "Not in area",
         "active": true,
         "console": "false",
-        "complete": "payload",
+        "complete": "true",
         "x": 650,
         "y": 440,
-        "wires": []
-    },
-    {
-        "id": "750f17fb.fc2588",
-        "type": "debug",
-        "z": "86a6e1fe.6cd338",
-        "name": "In area",
-        "active": false,
-        "console": "false",
-        "complete": "payload",
-        "x": 510,
-        "y": 300,
         "wires": []
     },
     {
@@ -774,16 +762,69 @@
         "type": "function",
         "z": "86a6e1fe.6cd338",
         "name": "InBox",
-        "func": "\nreturn msg;",
+        "func": "msg.inbox = msg.inbox.toUpperCase();\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 510,
-        "y": 240,
+        "y": 280,
         "wires": [
             [
                 "de984236.c89fa8"
             ]
         ]
+    },
+    {
+        "id": "2a6fbdcb.66e7c2",
+        "type": "function",
+        "z": "86a6e1fe.6cd338",
+        "name": "setCandle=OFF",
+        "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 160,
+        "y": 760,
+        "wires": [
+            [
+                "94d9130a.406fa"
+            ]
+        ]
+    },
+    {
+        "id": "b573c8d4.b93488",
+        "type": "ui_button",
+        "z": "86a6e1fe.6cd338",
+        "name": "",
+        "group": "258b4122.b49a56",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Turn Candle Off",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "\"off\"",
+        "payloadType": "str",
+        "topic": "",
+        "x": 136.875,
+        "y": 800.625,
+        "wires": [
+            [
+                "2a6fbdcb.66e7c2"
+            ]
+        ]
+    },
+    {
+        "id": "288e9210.4adb96",
+        "type": "debug",
+        "z": "86a6e1fe.6cd338",
+        "name": "In Area",
+        "active": true,
+        "console": "false",
+        "complete": "true",
+        "x": 520,
+        "y": 320,
+        "wires": []
     },
     {
         "id": "f7319c89.50bc",
@@ -798,7 +839,7 @@
         "id": "258b4122.b49a56",
         "type": "ui_group",
         "z": "",
-        "name": "ISSI Infos",
+        "name": "ISS Infos",
         "tab": "94ce4b46.f3ff6",
         "disp": true,
         "width": "6"
@@ -816,7 +857,7 @@
         "id": "94ce4b46.f3ff6",
         "type": "ui_tab",
         "z": "",
-        "name": "IssiArea",
+        "name": "ISS Area",
         "icon": "dashboard"
     }
 ]
