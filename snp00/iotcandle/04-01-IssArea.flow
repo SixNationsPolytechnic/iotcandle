@@ -1,8 +1,8 @@
 [
     {
-        "id": "1961cf41.0e97e1",
+        "id": "6497f992.4f8e98",
         "type": "template",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "Space Station Tracker",
         "field": "payload",
         "fieldType": "msg",
@@ -10,77 +10,77 @@
         "syntax": "plain",
         "template": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>Realtime ISS</title>\n        <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />\n        <style type=\"text/css\">\n            html { height: 100% }\n            body { height: 100%; margin: 0; padding: 0 }\n            #map { height: 100% }\n        </style>\n        <script type=\"text/javascript\" src=\"//maps.googleapis.com/maps/api/js?key=AIzaSyAFLoXS1lPMv75OISOZ0GujwAhH1LPlJP4&sensor=false\"></script>\n        <script src=\"//googlemaps.github.io/js-map-label/src/maplabel-compiled.js\"></script>\n        <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>\n        <script type=\"text/javascript\">\n            var map, marker, last_latlng;\n\n            function init() {\n                var latlng = new google.maps.LatLng(43.7081784,-79.4609571);//51.48931, -0.08819);\n                var mapOptions = { center: latlng, zoom: 2, mapTypeId: google.maps.MapTypeId.TERRAIN, //zoomControl: true, scaleControl: true}\n          \n           mapTypeControl: true,\n          mapTypeControlOptions: {\n              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,\n              position: google.maps.ControlPosition.TOP_CENTER\n          },\n          zoomControl: true,\n          zoomControlOptions: {\n              position: google.maps.ControlPosition.LEFT_CENTER\n          },\n          scaleControl: true,\n          streetViewControl: true,\n          streetViewControlOptions: {\n              position: google.maps.ControlPosition.LEFT_TOP\n          },\n          fullscreenControl: true\n                }\n\n\n                map = new google.maps.Map(document.getElementById(\"map\"), mapOptions);\n                infoWindow = new google.maps.InfoWindow();\n                maxZoomService = new google.maps.MaxZoomService();\n              //  map.addListener('click', showMaxZoom);\n\n\n                marker = new google.maps.Marker({ position: latlng, map: map, title: \"Lat:\"+latlng, icon: 'https://raw.githubusercontent.com/picklepete/iss/master/saticon.gif' });\n    \n    b1tlx= 85.03568516\n    b1tly= -150.734375\n    b1brx= -60.2679967\n    b1bry= -120.90625\n    var rectangle = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(b1tlx, b1tly),\n       new google.maps.LatLng(b1brx, b1bry))\n     });\n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 1',\n          position: new google.maps.LatLng(b1brx, b1bry),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n     //   mapLabel.set('position', new google.maps.LatLng(34.03, -118.235));\n        \n    b2tlx= 85.03568516\n    b2tly= -100.734375\n    b2brx= -60.2679967\n    b2bry= -70.90625\n   \n  var rectangle1 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(b2tlx, b2tly),\n       new google.maps.LatLng(b2brx, b2bry))\n     });\n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 2',\n          position: new google.maps.LatLng(b2brx, b2bry),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n   \n  var rectangle2 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, -50.734375),\n       new google.maps.LatLng(-60.2679967,-10.90625))\n     });\n   \n       var mapLabel = new MapLabel({\n          text: 'BOX 3',\n          position: new google.maps.LatLng(-60.2679967,-10.90625),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n\n     var rectangle3 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, 10),\n       new google.maps.LatLng(-60.2679967, 40))\n     });\n     \n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 4',\n          position: new google.maps.LatLng(-60.2679967, 40),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n\n          var rectangle4 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85, 90),\n       new google.maps.LatLng(-60, 130))\n     }); \n     \n       \n       var mapLabel = new MapLabel({\n          text: 'BOX 5',\n          position: new google.maps.LatLng(-60, 130),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n         \n            }\n            google.maps.event.addDomListener(window, 'load', init);\n\n\n\n           function showMaxZoom(e) {\n             maxZoomService.getMaxZoomAtLatLng(e.latLng, function(response) {\n               if (response.status !== google.maps.MaxZoomStatus.OK) {\n                 infoWindow.setContent('Error in MaxZoomService');\n               } else {\n                 infoWindow.setContent(\n                     'The maximum zoom at this location is: ' + response.zoom);\n               }\n               infoWindow.setPosition(e.latLng);\n               infoWindow.open(map);\n             });\n           }\n            function draw_flight_path(latlng) {\n                if(last_latlng == undefined) {\n                    last_latlng = latlng;\n                }\n                flight_path = new google.maps.Polyline({\n                    path: [last_latlng, latlng],\n                    strokeColor: \"#FF0000\",\n                    strokeOpacity: 1.0,\n                    strokeWeight: 2\n                });\n                last_latlng = latlng;\n                flight_path.setMap(map);\n            };\n\n            function get_latest_position() {\n                $.getJSON('http://open-notify-api.herokuapp.com/iss-now.json?callback=?', function(data, status) {\n                    position = data.iss_position;\n var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n// $.getJSON('https://api.wheretheiss.at/v1/satellites/25544/', function(data, status) {\n\n                    var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n                    map.setCenter(latlng);\n                    marker.setPosition(latlng);\n                    marker.setTitle(\"Position: \"+latlng);\n                    var mycon = \"ISSI<br>Lat:\"+position.latitude+\"<br>Long\"+ position.longitude\n                    var myinfowindow = new google.maps.InfoWindow({\n                        content: mycon\n                    });\n marker.addListener('click', function() {\n    myinfowindow.open(map, marker);\n  });\n\n                    draw_flight_path(latlng);\n                    \n                });\n            };\n            setInterval(get_latest_position, 5000);\n        </script>\n    </head>\n    <body>\n        <div id=\"map\"/>\n    </body>\n</html>\n",
         "output": "str",
-        "x": 320,
-        "y": 100,
+        "x": 280,
+        "y": 80,
         "wires": [
             [
-                "aeba379b.d31758"
+                "e843479b.1bf6e"
             ]
         ]
     },
     {
-        "id": "27c63bac.3aab3c",
+        "id": "5dcdaef.2810cd",
         "type": "http in",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
-        "url": "/issi",
+        "url": "/iss",
         "method": "get",
         "upload": false,
         "swaggerDoc": "",
-        "x": 103.5,
-        "y": 99.25,
+        "x": 63.5,
+        "y": 79.25,
         "wires": [
             [
-                "1961cf41.0e97e1"
+                "6497f992.4f8e98"
             ]
         ]
     },
     {
-        "id": "aeba379b.d31758",
+        "id": "e843479b.1bf6e",
         "type": "http response",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 530,
-        "y": 100,
+        "x": 490,
+        "y": 80,
         "wires": []
     },
     {
-        "id": "5fec7043.334fd",
+        "id": "ba373d25.7cf34",
         "type": "http request",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
         "method": "GET",
         "ret": "obj",
         "url": "http://open-notify-api.herokuapp.com/iss-now.json",
         "tls": "",
-        "x": 290,
-        "y": 160,
+        "x": 250,
+        "y": 140,
         "wires": [
             [
-                "a4ca87a6.c30bd8",
-                "c72b8aee.638988",
-                "8c966b76.46c0b"
+                "a501d5e7.8edf48",
+                "5d519b9c.c8d30c",
+                "416cdd81.39bbac"
             ]
         ]
     },
     {
-        "id": "a4ca87a6.c30bd8",
+        "id": "a501d5e7.8edf48",
         "type": "debug",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "IssiPos",
         "active": false,
         "console": "false",
         "complete": "payload",
-        "x": 530.5,
-        "y": 161.5,
+        "x": 490.5,
+        "y": 141.5,
         "wires": []
     },
     {
-        "id": "69711b7e.e27a64",
+        "id": "5a978061.d9dcc",
         "type": "inject",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
         "topic": "",
         "payload": "",
@@ -88,55 +88,55 @@
         "repeat": "10",
         "crontab": "",
         "once": false,
-        "x": 118.5,
-        "y": 159.25,
+        "x": 78.5,
+        "y": 139.25,
         "wires": [
             [
-                "5fec7043.334fd"
+                "ba373d25.7cf34"
             ]
         ]
     },
     {
-        "id": "f003f9f3.12d8f8",
+        "id": "85af0641.9187d8",
         "type": "ui_template",
-        "z": "86a6e1fe.6cd338",
-        "group": "f7319c89.50bc",
+        "z": "26c6186e.20805",
+        "group": "d26ced6e.7c9c9",
         "name": "map",
         "order": 0,
         "width": "15",
         "height": "11",
-        "format": "<div >\n<iframe src=\"/issi\" height=600 width=800>\n  <p>Your browser does not support iframes.</p>\n</iframe>\n</div>",
+        "format": "<div >\n<iframe src=\"/iss\" height=600 width=800>\n  <p>Your browser does not support iframes.</p>\n</iframe>\n</div>",
         "storeOutMessages": false,
         "fwdInMessages": false,
         "templateScope": "local",
-        "x": 710,
-        "y": 100,
+        "x": 670,
+        "y": 80,
         "wires": [
             []
         ]
     },
     {
-        "id": "c72b8aee.638988",
+        "id": "5d519b9c.c8d30c",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "DisplayLat",
         "func": "\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 530,
-        "y": 200,
+        "x": 490,
+        "y": 180,
         "wires": [
             [
-                "db632842.e454b8",
-                "8aa91149.d9d498"
+                "f456ef66.9d0d08",
+                "60819974.d846d"
             ]
         ]
     },
     {
-        "id": "db632842.e454b8",
+        "id": "f456ef66.9d0d08",
         "type": "ui_text",
-        "z": "86a6e1fe.6cd338",
-        "group": "258b4122.b49a56",
+        "z": "26c6186e.20805",
+        "group": "20bfbb42.404ad4",
         "order": 1,
         "width": 0,
         "height": 0,
@@ -144,15 +144,15 @@
         "label": "latitude",
         "format": "{{msg.payload.iss_position.latitude}}",
         "layout": "row-spread",
-        "x": 720,
-        "y": 180,
+        "x": 680,
+        "y": 160,
         "wires": []
     },
     {
-        "id": "8aa91149.d9d498",
+        "id": "60819974.d846d",
         "type": "ui_text",
-        "z": "86a6e1fe.6cd338",
-        "group": "258b4122.b49a56",
+        "z": "26c6186e.20805",
+        "group": "20bfbb42.404ad4",
         "order": 2,
         "width": 0,
         "height": 0,
@@ -160,32 +160,32 @@
         "label": "longitude",
         "format": "{{msg.payload.iss_position.longitude}}",
         "layout": "row-spread",
-        "x": 720,
-        "y": 220,
+        "x": 680,
+        "y": 200,
         "wires": []
     },
     {
-        "id": "8c966b76.46c0b",
+        "id": "416cdd81.39bbac",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "LATLON",
         "func": "\nmsg.latitude = msg.payload.iss_position.latitude;\nmsg.longitude = msg.payload.iss_position.longitude;\n\nmsg.payload = \"\"+msg.latitude+\",\"+msg.longitude;\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 200,
-        "y": 260,
+        "x": 160,
+        "y": 240,
         "wires": [
             [
-                "6109ef5a.b9ef7"
+                "3c93a124.f3ea2e"
             ]
         ]
     },
     {
-        "id": "5dfee199.f8276",
+        "id": "9d02e649.0b5058",
         "type": "ui_gauge",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
-        "group": "6bc50be2.f3095c",
+        "group": "daf4cba9.67cf",
         "order": 0,
         "width": "5",
         "height": "3",
@@ -202,16 +202,16 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 1250,
-        "y": 760,
+        "x": 1210,
+        "y": 740,
         "wires": []
     },
     {
-        "id": "80efaddd.4c8f78",
+        "id": "1a74ff8b.0dd278",
         "type": "ui_gauge",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
-        "group": "6bc50be2.f3095c",
+        "group": "daf4cba9.67cf",
         "order": 0,
         "width": "5",
         "height": "3",
@@ -228,14 +228,14 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 1250,
-        "y": 720,
+        "x": 1210,
+        "y": 700,
         "wires": []
     },
     {
-        "id": "b424bf37.d206b8",
+        "id": "9a47fa50.ba189",
         "type": "ibmiot in",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "authentication": "boundService",
         "apiKey": "",
         "inputType": "evt",
@@ -254,69 +254,69 @@
         "allCommands": false,
         "allFormats": true,
         "qos": "0",
-        "x": 730,
-        "y": 720,
+        "x": 690,
+        "y": 700,
         "wires": [
             [
-                "d972de48.a346e",
-                "78066462.868f04",
-                "ce841886.adfb98",
-                "dd4e8eb0.9ba7f8"
+                "312e8a2c.8c4536",
+                "3d6075db.2f626a",
+                "fb8fc89d.3bd798",
+                "ca4a7db3.1f5968"
             ]
         ]
     },
     {
-        "id": "6109ef5a.b9ef7",
+        "id": "3c93a124.f3ea2e",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "CheckArea",
         "func": "//Lat = Y Long = X\n/*\nbb is the bounding box, (ix,iy) are its top-left coordinates, and (ax,ay) its bottom-right coordinates. p is the point and (x,y) its coordinates.\n*/\nfunction checkPos(lat,lon,topleftlat,topleftlon,bottomrightlat,bottomrightlon,box)\n{\n    msg.inbox = box;\n  \n  //  node.warn(\"X topleftlon \"+topleftlon+\"  <= lon \"+lon+ \" res = \"+(   topleftlon <= lon   ))\n  //  node.warn(\"X lon \"+lon+\"  <= bottomrightlon \"+bottomrightlon+ \" res = \"+(  lon <= bottomrightlon)  )\n\nif( topleftlon <= lon && lon <= bottomrightlon ) {\n    // Point is in bounding box\n\n \n //node.warn(\" ISS in the area (\"+box+\").. candle ON\")  \nreturn true;\n\n}else{\n// node.warn(\"ISS not in the area  (\"+box+\")... candle OFF\")  \n return  false;\n\n\n}\nreturn  false;\n}\n\n \n  r0LatTl= 85\n  r0LngTl=-150\n\n  r0LatBr= -60\n  r0LngBr= -120\n\n  r1LatTl=  85\n  r1LngTl=-100.\n\n  r1LatBr= -60\n  r1LngBr= -70\n\n\n  r2LatTl=  85\n  r2LngTl= -50\n\n  r2LatBr= -60\n  r2LngBr= -10\n\n  r3LatTl=  85\n  r3LngTl= 10\n\n  r3LatBr= 85\n  r3LngBr= 40\n  \n  r4LatTl= 85\n  r4LngTl= 90\n\n  r4LatBr= -60\n  r4LngBr= 130\n\n/*\n\nlatitude\n\n-50.50472391191916\n\nlongitude\n\n-126.35910070188285\n\n\n\nlatitude = -50.5047239119191\n\nlongitude= -126.35910070188285\n\nmsg.inarea = false;\n node.warn(\"check\")\nres =checkPos(latitude ,longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box 1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n  */  \n\nmsg.inarea = false;\nres =checkPos(msg.latitude ,msg.longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n\n\nres =checkPos(msg.latitude ,msg.longitude,r1LatTl,r1LngTl,r1LatBr,r1LngBr,\"box 2\");\nmsg.inarea = res;\nif(res)\n    return msg;\n    \n \nres =checkPos(msg.latitude ,msg.longitude,r2LatTl,r2LngTl,r2LatBr,r2LngBr,\"box 3\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\nres =checkPos(msg.latitude ,msg.longitude,r3LatTl,r3LngTl,r3LatBr,r3LngBr,\"box 4\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\n\nres =checkPos(msg.latitude ,msg.longitude,r4LatTl,r4LngTl,r4LatBr,r4LngBr,\"box 5\");\nmsg.inarea = res;\nif(res)\n    return msg; \n    \nmsg.inbox = \"No area\";    \nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 190,
-        "y": 360,
+        "x": 150,
+        "y": 340,
         "wires": [
             [
-                "c39320.97babce",
-                "25112d41.94ef9a",
-                "c1aa954d.fd952"
+                "661ab7f7.7f9ac8",
+                "1281a8c1.02bf77",
+                "7f2ff6c1.f8254"
             ]
         ]
     },
     {
-        "id": "52633f18.df707",
+        "id": "7c80408a.9f3aa8",
         "type": "e-mail",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "server": "smtp.gmail.com",
         "port": "465",
         "secure": true,
         "name": "yourname@gmail.com",
         "dname": "",
-        "x": 1160,
-        "y": 360,
+        "x": 1120,
+        "y": 340,
         "wires": []
     },
     {
-        "id": "9d0e292c.caae88",
+        "id": "a4ecb6fd.2ae5e8",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "IfIss is in Area send email",
         "func": "\n    msg.topic = \"ISS update from YOU\"\n    msg.payload= \"Hello from Node-RED ISS is in Area\";\n    return msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 890,
-        "y": 360,
+        "x": 850,
+        "y": 340,
         "wires": [
             [
-                "52633f18.df707",
-                "c9c2c720.b52458"
+                "7c80408a.9f3aa8",
+                "41d642fb.c6c8ac"
             ]
         ]
     },
     {
-        "id": "fe64fe5e.535f5",
+        "id": "6b6003fb.2c0604",
         "type": "inject",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "Send Email",
         "topic": "",
         "payload": "",
@@ -324,44 +324,44 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 890,
-        "y": 420,
+        "x": 850,
+        "y": 400,
         "wires": [
             [
-                "9d0e292c.caae88"
+                "a4ecb6fd.2ae5e8"
             ]
         ]
     },
     {
-        "id": "c9c2c720.b52458",
+        "id": "41d642fb.c6c8ac",
         "type": "debug",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "email",
         "active": false,
         "console": "false",
         "complete": "true",
-        "x": 1110,
-        "y": 420,
+        "x": 1070,
+        "y": 400,
         "wires": []
     },
     {
-        "id": "a4c3e8d4.45de6",
+        "id": "d2c10582.007ee8",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "setCandleMode=Flashing",
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":19,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 255\n    \n}\nmsg.eventOrCommandType = \"setCandleMode\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 150,
-        "y": 880,
+        "x": 110,
+        "y": 860,
         "wires": [
             []
         ]
     },
     {
-        "id": "ddf9c6bb.741d68",
+        "id": "e2d8e6f.c2ef518",
         "type": "delay",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
         "pauseType": "delay",
         "timeout": "5",
@@ -373,18 +373,18 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 120,
-        "y": 520,
+        "x": 80,
+        "y": 500,
         "wires": [
             [
-                "dfaa14b4.e73cf8"
+                "95a169f6.91e69"
             ]
         ]
     },
     {
-        "id": "94d9130a.406fa",
+        "id": "77e00edc.3d1b9",
         "type": "ibmiot out",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "authentication": "boundService",
         "apiKey": "",
         "outputType": "cmd",
@@ -396,44 +396,44 @@
         "qos": 0,
         "name": "toPiCandle",
         "service": "registered",
-        "x": 650,
-        "y": 520,
+        "x": 610,
+        "y": 500,
         "wires": []
     },
     {
-        "id": "b140c50d.26b54",
+        "id": "42d6082a.772088",
         "type": "comment",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "Check the Code below",
         "info": "",
-        "x": 200,
-        "y": 320,
+        "x": 160,
+        "y": 300,
         "wires": []
     },
     {
-        "id": "95df3339.01556",
+        "id": "5be85f6c.741508",
         "type": "comment",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "IssWebPage",
         "info": "",
-        "x": 287.2222222222222,
-        "y": 57.5,
+        "x": 247.22222222222217,
+        "y": 37.5,
         "wires": []
     },
     {
-        "id": "6e818673.38535",
+        "id": "eed40b0d.bf5758",
         "type": "comment",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "#2 Use Your GMAIL account",
         "info": "",
-        "x": 1180,
-        "y": 320,
+        "x": 1140,
+        "y": 300,
         "wires": []
     },
     {
-        "id": "740e4c02.5b6b94",
+        "id": "da799211.ce5b68",
         "type": "inject",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
         "topic": "",
         "payload": "",
@@ -441,100 +441,100 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 120,
-        "y": 560,
+        "x": 80,
+        "y": 540,
         "wires": [
             [
-                "dfaa14b4.e73cf8"
+                "95a169f6.91e69"
             ]
         ]
     },
     {
-        "id": "3335bfd8.158cd",
+        "id": "22e2dbb9.7502dc",
         "type": "comment",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "#1 Adjust the candle number",
         "info": "",
-        "x": 920,
-        "y": 460,
+        "x": 880,
+        "y": 440,
         "wires": []
     },
     {
-        "id": "7dbef567.d95014",
+        "id": "719f3102.47b1e",
         "type": "comment",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "#1 Adjust the candle number",
         "info": "",
-        "x": 740,
-        "y": 680,
+        "x": 700,
+        "y": 660,
         "wires": []
     },
     {
-        "id": "d972de48.a346e",
+        "id": "312e8a2c.8c4536",
         "type": "debug",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "InComing",
         "active": false,
         "console": "false",
         "complete": "payload",
-        "x": 720,
-        "y": 780,
+        "x": 680,
+        "y": 760,
         "wires": []
     },
     {
-        "id": "78066462.868f04",
+        "id": "3d6075db.2f626a",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "Red",
         "func": "var newmsg ={}\nnewmsg.payload = msg.payload.candleRR\nreturn newmsg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1050,
-        "y": 680,
+        "x": 1010,
+        "y": 660,
         "wires": [
             [
-                "9551ea73.de3fa"
+                "624f6615.bfe0e"
             ]
         ]
     },
     {
-        "id": "ce841886.adfb98",
+        "id": "fb8fc89d.3bd798",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "Green",
         "func": "msg.payload = msg.payload.candleGG\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1050,
-        "y": 720,
+        "x": 1010,
+        "y": 700,
         "wires": [
             [
-                "80efaddd.4c8f78"
+                "1a74ff8b.0dd278"
             ]
         ]
     },
     {
-        "id": "dd4e8eb0.9ba7f8",
+        "id": "ca4a7db3.1f5968",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "Blue",
         "func": "msg.payload = msg.payload.candleBB\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 1050,
-        "y": 760,
+        "x": 1010,
+        "y": 740,
         "wires": [
             [
-                "5dfee199.f8276"
+                "9d02e649.0b5058"
             ]
         ]
     },
     {
-        "id": "9551ea73.de3fa",
+        "id": "624f6615.bfe0e",
         "type": "ui_gauge",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
-        "group": "6bc50be2.f3095c",
+        "group": "daf4cba9.67cf",
         "order": 0,
         "width": "5",
         "height": "3",
@@ -551,63 +551,63 @@
         ],
         "seg1": "",
         "seg2": "",
-        "x": 1250,
-        "y": 680,
+        "x": 1210,
+        "y": 660,
         "wires": []
     },
     {
-        "id": "ea67271c.d2bae",
+        "id": "83702703.6f7e38",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "setCandle=OFF",
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 480,
-        "y": 440,
+        "x": 440,
+        "y": 420,
         "wires": [
             [
-                "94d9130a.406fa",
-                "d3843a62.817a78"
+                "77e00edc.3d1b9",
+                "c577dac.3f15928"
             ]
         ]
     },
     {
-        "id": "c44e5f61.7b9ae8",
+        "id": "152d804a.e0fe28",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "setCandle=Red",
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 255,\n\"gg\" : 0,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 360,
-        "y": 500,
+        "x": 320,
+        "y": 480,
         "wires": [
             [
-                "94d9130a.406fa"
+                "77e00edc.3d1b9"
             ]
         ]
     },
     {
-        "id": "9f8290dd.1fd188",
+        "id": "186cff3f.348491",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "setCandle=Blue",
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 255\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 160,
-        "y": 640,
+        "x": 120,
+        "y": 620,
         "wires": [
             [
-                "94d9130a.406fa"
+                "77e00edc.3d1b9"
             ]
         ]
     },
     {
-        "id": "28674ee9.f5d48a",
+        "id": "4db980ec.7899c8",
         "type": "inject",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
         "topic": "",
         "payload": "",
@@ -615,44 +615,44 @@
         "repeat": "",
         "crontab": "",
         "once": false,
-        "x": 120,
-        "y": 680,
+        "x": 80,
+        "y": 660,
         "wires": [
             [
-                "9f8290dd.1fd188"
+                "186cff3f.348491"
             ]
         ]
     },
     {
-        "id": "dfaa14b4.e73cf8",
+        "id": "95a169f6.91e69",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "setCandle=Green",
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 255,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 370,
-        "y": 540,
+        "x": 330,
+        "y": 520,
         "wires": [
             [
-                "94d9130a.406fa"
+                "77e00edc.3d1b9"
             ]
         ]
     },
     {
-        "id": "aad047f1.907d1",
+        "id": "fe7c1394.f8f0e",
         "type": "comment",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "#3 Check email text",
         "info": "",
-        "x": 870,
-        "y": 320,
+        "x": 830,
+        "y": 300,
         "wires": []
     },
     {
-        "id": "c39320.97babce",
+        "id": "661ab7f7.7f9ac8",
         "type": "switch",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "In Area ?",
         "property": "inarea",
         "propertyType": "msg",
@@ -666,24 +666,24 @@
         ],
         "checkall": "true",
         "outputs": 2,
-        "x": 380,
-        "y": 360,
+        "x": 340,
+        "y": 340,
         "wires": [
             [
-                "ddf9c6bb.741d68",
-                "18db30f9.03baf7",
-                "c44e5f61.7b9ae8",
-                "288e9210.4adb96"
+                "e2d8e6f.c2ef518",
+                "64467d11.cd25dc",
+                "152d804a.e0fe28",
+                "8b74f554.2720e"
             ],
             [
-                "ea67271c.d2bae"
+                "83702703.6f7e38"
             ]
         ]
     },
     {
-        "id": "18db30f9.03baf7",
+        "id": "64467d11.cd25dc",
         "type": "delay",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
         "pauseType": "rate",
         "timeout": "1",
@@ -695,57 +695,43 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": true,
-        "x": 620,
-        "y": 360,
+        "x": 580,
+        "y": 340,
         "wires": [
             [
-                "9d0e292c.caae88"
+                "a4ecb6fd.2ae5e8"
             ]
         ]
     },
     {
-        "id": "d3843a62.817a78",
+        "id": "c577dac.3f15928",
         "type": "debug",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "Not in area",
         "active": true,
         "console": "false",
         "complete": "true",
-        "x": 650,
-        "y": 440,
-        "wires": []
-    },
-    {
-        "id": "25112d41.94ef9a",
-        "type": "debug",
-        "z": "86a6e1fe.6cd338",
-        "name": "Check",
-        "active": false,
-        "console": "false",
-        "complete": "payload",
-        "x": 170,
+        "x": 610,
         "y": 420,
         "wires": []
     },
     {
-        "id": "c2612e75.1488a",
-        "type": "function",
-        "z": "86a6e1fe.6cd338",
-        "name": "CheckArea",
-        "func": "//Lat = Y Long = X\n/*\nbb is the bounding box, (ix,iy) are its top-left coordinates, and (ax,ay) its bottom-right coordinates. p is the point and (x,y) its coordinates.\n*/\nfunction checkPos(lat,lon,topleftlat,topleftlon,bottomrightlat,bottomrightlon,box)\n{\n    msg.inbox = box;\n    node.warn(\"Y topleftlat \"+topleftlat+\"  <= lat \"+lat+ \" res = \"+(   topleftlat  > lat)  )\n    node.warn(\"Y lat \"+lat+\"  <= bottomrightlat \"+bottomrightlat+ \" res = \"+(  lat > bottomrightlat)  )\n \n    node.warn(\"X topleftlon \"+topleftlon+\"  <= lon \"+lon+ \" res = \"+(   topleftlon <= lon   ))\n    node.warn(\"X lon \"+lon+\"  <= bottomrightlon \"+bottomrightlon+ \" res = \"+(  lon <= bottomrightlon)  )\n\nif( topleftlon <= lon && lon <= bottomrightlon && topleftlat > lat && lat > bottomrightlat) {\n    // Point is in bounding box\n\n \n node.warn(\" ISS in the area (\"+box+\").. candle ON\")  \nreturn true;\n\n}else{\n node.warn(\"ISS not in the area  (\"+box+\")... candle OFF\")  \n return  false;\n\n\n}\nreturn  false;\n}\n\n \n  r0LatTl= 85\n  r0LngTl=-150\n\n  r0LatBr= -60\n  r0LngBr= -120\n\n  r1LatTl=  85\n  r1LngTl=-100.\n\n  r1LatBr= -60\n  r1LngBr= -70\n\n\n  r2LatTl=  85\n  r2LngTl= -50\n\n  r2LatBr= -60\n  r2LngBr= -10\n\n  r3LatTl=  85\n  r3LngTl= 10\n\n  r3LatBr= 85\n  r3LngBr= 40\n  \n  r4LatTl= 85\n  r4LngTl= 90\n\n  r4LatBr= -60\n  r4LngBr= 130\n\n/*\n\nlatitude\n\n-50.50472391191916\n\nlongitude\n\n-126.35910070188285\n\n\n\nlatitude = -50.5047239119191\n\nlongitude= -126.35910070188285\n\nmsg.inarea = false;\n node.warn(\"check\")\nres =checkPos(latitude ,longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr);\nmsg.inarea = res;\nif(res)\n    return msg;\n    \n*/\nmsg.inarea = false;\nres =checkPos(msg.latitude ,msg.longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n\n\nres =checkPos(msg.latitude ,msg.longitude,r1LatTl,r1LngTl,r1LatBr,r1LngBr,\"box 2\");\nmsg.inarea = res;\nif(res)\n    return msg;\n    \n \nres =checkPos(msg.latitude ,msg.longitude,r2LatTl,r2LngTl,r2LatBr,r2LngBr,\"box 3\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\nres =checkPos(msg.latitude ,msg.longitude,r3LatTl,r3LngTl,r3LatBr,r3LngBr,\"box 4\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\n\nres =checkPos(msg.latitude ,msg.longitude,r4LatTl,r4LngTl,r4LatBr,r4LngBr,\"box 5\");\nmsg.inarea = res;\nif(res)\n    return msg; \n    \nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 430,
-        "y": 740,
-        "wires": [
-            []
-        ]
+        "id": "1281a8c1.02bf77",
+        "type": "debug",
+        "z": "26c6186e.20805",
+        "name": "Check",
+        "active": false,
+        "console": "false",
+        "complete": "payload",
+        "x": 130,
+        "y": 400,
+        "wires": []
     },
     {
-        "id": "de984236.c89fa8",
+        "id": "f13ead50.575b98",
         "type": "ui_text",
-        "z": "86a6e1fe.6cd338",
-        "group": "258b4122.b49a56",
+        "z": "26c6186e.20805",
+        "group": "20bfbb42.404ad4",
         "order": 2,
         "width": 0,
         "height": 0,
@@ -753,48 +739,48 @@
         "label": "In Area",
         "format": "{{msg.inbox}}",
         "layout": "row-spread",
-        "x": 720,
-        "y": 280,
+        "x": 680,
+        "y": 260,
         "wires": []
     },
     {
-        "id": "c1aa954d.fd952",
+        "id": "7f2ff6c1.f8254",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "InBox",
         "func": "msg.inbox = msg.inbox.toUpperCase();\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 510,
-        "y": 280,
+        "x": 470,
+        "y": 260,
         "wires": [
             [
-                "de984236.c89fa8"
+                "f13ead50.575b98"
             ]
         ]
     },
     {
-        "id": "2a6fbdcb.66e7c2",
+        "id": "e66c92ea.43ce48",
         "type": "function",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "setCandle=OFF",
         "func": "var newmsg = {\"cmd\" : \"setcolor\",\n//00 7e ff 00 00 00 19 00\"\n// modes: 01 = Fade, 02 = Jump RBG (rainbow), 03 = Fade RGB (rainbow), 04 = Candle Effect\n\n\"mode\":0,\n\"speed1\":0,\n\"speed2\":0,\n\"rr\" : 0,\n\"gg\" : 0,\n\"bb\" : 0\n    \n}\nmsg.eventOrCommandType = \"setColor\";\nmsg.payload=newmsg ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
-        "x": 160,
-        "y": 760,
+        "x": 120,
+        "y": 740,
         "wires": [
             [
-                "94d9130a.406fa"
+                "77e00edc.3d1b9"
             ]
         ]
     },
     {
-        "id": "b573c8d4.b93488",
+        "id": "c4cf6280.1d0358",
         "type": "ui_button",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "",
-        "group": "258b4122.b49a56",
+        "group": "20bfbb42.404ad4",
         "order": 0,
         "width": 0,
         "height": 0,
@@ -806,55 +792,65 @@
         "payload": "\"off\"",
         "payloadType": "str",
         "topic": "",
-        "x": 136.875,
-        "y": 800.625,
+        "x": 96.875,
+        "y": 780.625,
         "wires": [
             [
-                "2a6fbdcb.66e7c2"
+                "e66c92ea.43ce48"
             ]
         ]
     },
     {
-        "id": "288e9210.4adb96",
+        "id": "8b74f554.2720e",
         "type": "debug",
-        "z": "86a6e1fe.6cd338",
+        "z": "26c6186e.20805",
         "name": "In Area",
         "active": true,
         "console": "false",
         "complete": "true",
-        "x": 520,
-        "y": 320,
+        "x": 480,
+        "y": 300,
         "wires": []
     },
     {
-        "id": "f7319c89.50bc",
+        "id": "83c7e6b6.baa75",
+        "type": "comment",
+        "z": "26c6186e.20805",
+        "name": "Infos",
+        "info": "mvk@ca.ibm.com - November 2017 \nSee https://github.com/SixNationsPolytechnic/iotcandle",
+        "x": 50,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "d26ced6e.7c9c9",
         "type": "ui_group",
         "z": "",
-        "name": "IssiArea",
-        "tab": "94ce4b46.f3ff6",
+        "name": "ISS Area",
+        "tab": "5c11d200.e9e4e4",
         "disp": true,
         "width": "12"
     },
     {
-        "id": "258b4122.b49a56",
+        "id": "20bfbb42.404ad4",
         "type": "ui_group",
         "z": "",
         "name": "ISS Infos",
-        "tab": "94ce4b46.f3ff6",
+        "tab": "5c11d200.e9e4e4",
         "disp": true,
         "width": "6"
     },
     {
-        "id": "6bc50be2.f3095c",
+        "id": "daf4cba9.67cf",
         "type": "ui_group",
         "z": "",
         "name": "FromPI",
-        "tab": "94ce4b46.f3ff6",
+        "tab": "5c11d200.e9e4e4",
         "disp": true,
         "width": "6"
     },
     {
-        "id": "94ce4b46.f3ff6",
+        "id": "5c11d200.e9e4e4",
         "type": "ui_tab",
         "z": "",
         "name": "ISS Area",
