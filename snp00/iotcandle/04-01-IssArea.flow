@@ -8,7 +8,7 @@
         "fieldType": "msg",
         "format": "handlebars",
         "syntax": "plain",
-        "template": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>Realtime ISS</title>\n        <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />\n        <style type=\"text/css\">\n            html { height: 100% }\n            body { height: 100%; margin: 0; padding: 0 }\n            #map { height: 100% }\n        </style>\n        <script type=\"text/javascript\" src=\"//maps.googleapis.com/maps/api/js?key=AIzaSyAFLoXS1lPMv75OISOZ0GujwAhH1LPlJP4&sensor=false\"></script>\n        <script src=\"//googlemaps.github.io/js-map-label/src/maplabel-compiled.js\"></script>\n        <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>\n        <script type=\"text/javascript\">\n            var map, marker, last_latlng;\n\n            function init() {\n                var latlng = new google.maps.LatLng(43.7081784,-79.4609571);//51.48931, -0.08819);\n                var mapOptions = { center: latlng, zoom: 2, mapTypeId: google.maps.MapTypeId.TERRAIN, //zoomControl: true, scaleControl: true}\n          \n           mapTypeControl: true,\n          mapTypeControlOptions: {\n              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,\n              position: google.maps.ControlPosition.TOP_CENTER\n          },\n          zoomControl: true,\n          zoomControlOptions: {\n              position: google.maps.ControlPosition.LEFT_CENTER\n          },\n          scaleControl: true,\n          streetViewControl: true,\n          streetViewControlOptions: {\n              position: google.maps.ControlPosition.LEFT_TOP\n          },\n          fullscreenControl: true\n                }\n\n\n                map = new google.maps.Map(document.getElementById(\"map\"), mapOptions);\n                infoWindow = new google.maps.InfoWindow();\n                maxZoomService = new google.maps.MaxZoomService();\n              //  map.addListener('click', showMaxZoom);\n\n\n                marker = new google.maps.Marker({ position: latlng, map: map, title: \"Lat:\"+latlng, icon: 'https://raw.githubusercontent.com/picklepete/iss/master/saticon.gif' });\n    \n    b1tlx= 85.03568516\n    b1tly= -150.734375\n    b1brx= -60.2679967\n    b1bry= -120.90625\n    var rectangle = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(b1tlx, b1tly),\n       new google.maps.LatLng(b1brx, b1bry))\n     });\n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 1',\n          position: new google.maps.LatLng(b1brx, b1bry),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n     //   mapLabel.set('position', new google.maps.LatLng(34.03, -118.235));\n        \n    b2tlx= 85.03568516\n    b2tly= -100.734375\n    b2brx= -60.2679967\n    b2bry= -70.90625\n   \n  var rectangle1 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(b2tlx, b2tly),\n       new google.maps.LatLng(b2brx, b2bry))\n     });\n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 2',\n          position: new google.maps.LatLng(b2brx, b2bry),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n   \n  var rectangle2 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, -50.734375),\n       new google.maps.LatLng(-60.2679967,-10.90625))\n     });\n   \n       var mapLabel = new MapLabel({\n          text: 'BOX 3',\n          position: new google.maps.LatLng(-60.2679967,-10.90625),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n\n     var rectangle3 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, 10),\n       new google.maps.LatLng(-60.2679967, 40))\n     });\n     \n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 4',\n          position: new google.maps.LatLng(-60.2679967, 40),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n\n          var rectangle4 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 5,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85, 90),\n       new google.maps.LatLng(-60, 130))\n     }); \n     \n       \n       var mapLabel = new MapLabel({\n          text: 'BOX 5',\n          position: new google.maps.LatLng(-60, 130),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n         \n            }\n            google.maps.event.addDomListener(window, 'load', init);\n\n\n\n           function showMaxZoom(e) {\n             maxZoomService.getMaxZoomAtLatLng(e.latLng, function(response) {\n               if (response.status !== google.maps.MaxZoomStatus.OK) {\n                 infoWindow.setContent('Error in MaxZoomService');\n               } else {\n                 infoWindow.setContent(\n                     'The maximum zoom at this location is: ' + response.zoom);\n               }\n               infoWindow.setPosition(e.latLng);\n               infoWindow.open(map);\n             });\n           }\n            function draw_flight_path(latlng) {\n                if(last_latlng == undefined) {\n                    last_latlng = latlng;\n                }\n                flight_path = new google.maps.Polyline({\n                    path: [last_latlng, latlng],\n                    strokeColor: \"#FF0000\",\n                    strokeOpacity: 1.0,\n                    strokeWeight: 2\n                });\n                last_latlng = latlng;\n                flight_path.setMap(map);\n            };\n\n            function get_latest_position() {\n                $.getJSON('http://open-notify-api.herokuapp.com/iss-now.json?callback=?', function(data, status) {\n                    position = data.iss_position;\n var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n// $.getJSON('https://api.wheretheiss.at/v1/satellites/25544/', function(data, status) {\n\n                    var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n                    map.setCenter(latlng);\n                    marker.setPosition(latlng);\n                    marker.setTitle(\"Position: \"+latlng);\n                    var mycon = \"ISSI<br>Lat:\"+position.latitude+\"<br>Long\"+ position.longitude\n                    var myinfowindow = new google.maps.InfoWindow({\n                        content: mycon\n                    });\n marker.addListener('click', function() {\n    myinfowindow.open(map, marker);\n  });\n\n                    draw_flight_path(latlng);\n                    \n                });\n            };\n            setInterval(get_latest_position, 5000);\n        </script>\n    </head>\n    <body>\n        <div id=\"map\"/>\n    </body>\n</html>\n",
+        "template": "<!DOCTYPE html>\n<html>\n    <head>\n        <title>Realtime ISS</title>\n        <meta name=\"viewport\" content=\"initial-scale=1.0, user-scalable=no\" />\n        <style type=\"text/css\">\n            html { height: 100% }\n            body { height: 100%; margin: 0; padding: 0 }\n            #map { height: 100% }\n        </style>\n        <script type=\"text/javascript\" src=\"//maps.googleapis.com/maps/api/js?key=AIzaSyAFLoXS1lPMv75OISOZ0GujwAhH1LPlJP4&sensor=false\"></script>\n        <script src=\"//googlemaps.github.io/js-map-label/src/maplabel-compiled.js\"></script>\n        <script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>\n        <script type=\"text/javascript\">\n            var map, marker, last_latlng;\n\n            function init() {\n                var latlng = new google.maps.LatLng(43.7081784,-79.4609571);//51.48931, -0.08819);\n                var mapOptions = { center: latlng, zoom: 2, mapTypeId: google.maps.MapTypeId.TERRAIN, //zoomControl: true, scaleControl: true}\n          \n           mapTypeControl: true,\n          mapTypeControlOptions: {\n              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,\n              position: google.maps.ControlPosition.TOP_CENTER\n          },\n          zoomControl: true,\n          zoomControlOptions: {\n              position: google.maps.ControlPosition.LEFT_CENTER\n          },\n          scaleControl: true,\n          streetViewControl: true,\n          streetViewControlOptions: {\n              position: google.maps.ControlPosition.LEFT_TOP\n          },\n          fullscreenControl: true\n                }\n\n\n                map = new google.maps.Map(document.getElementById(\"map\"), mapOptions);\n                infoWindow = new google.maps.InfoWindow();\n                maxZoomService = new google.maps.MaxZoomService();\n              //  map.addListener('click', showMaxZoom);\n\n\n                marker = new google.maps.Marker({ position: latlng, map: map, title: \"Lat:\"+latlng, icon: 'https://raw.githubusercontent.com/picklepete/iss/master/saticon.gif' });\n    //aquator\n    \n    \n       var rectangle = new google.maps.Rectangle({\n       strokeColor: '#0000FF',\n       strokeOpacity: 0.8,\n       strokeWeight: 2,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(0, 90),\n       new google.maps.LatLng(0, 0))\n     });\n     \n    b1tlx= 85.03568516\n    b1tly= -150.734375\n    b1brx= -60.2679967\n    b1bry= -120.90625\n    var rectangle = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 2,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(b1tlx, b1tly),\n       new google.maps.LatLng(b1brx, b1bry))\n     });\n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 1',\n          position: new google.maps.LatLng(b1brx, b1bry),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n     //   mapLabel.set('position', new google.maps.LatLng(34.03, -118.235));\n        \n    b2tlx= 85.03568516\n    b2tly= -100.734375\n    b2brx= -60.2679967\n    b2bry= -70.90625\n   \n  var rectangle1 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 2,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(b2tlx, b2tly),\n       new google.maps.LatLng(b2brx, b2bry))\n     });\n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 2',\n          position: new google.maps.LatLng(b2brx, b2bry),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n   \n  var rectangle2 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 2,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, -50.734375),\n       new google.maps.LatLng(-60.2679967,-10.90625))\n     });\n   \n       var mapLabel = new MapLabel({\n          text: 'BOX 3',\n          position: new google.maps.LatLng(-60.2679967,-10.90625),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n\n     var rectangle3 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 2,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85.03568516, 10),\n       new google.maps.LatLng(-60.2679967, 40))\n     });\n     \n     \n       var mapLabel = new MapLabel({\n          text: 'BOX 4',\n          position: new google.maps.LatLng(-60.2679967, 40),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n\n\n          var rectangle4 = new google.maps.Rectangle({\n       strokeColor: '#FF0000',\n       strokeOpacity: 0.8,\n       strokeWeight: 2,\n       fillColor: '#ffffff',\n       fillOpacity: 0.35,\n       map: map,\n       bounds: new google.maps.LatLngBounds(\n       new google.maps.LatLng(85, 90),\n       new google.maps.LatLng(-60, 130))\n     }); \n     \n       \n       var mapLabel = new MapLabel({\n          text: 'BOX 5',\n          position: new google.maps.LatLng(-60, 130),\n          map: map,\n          fontSize: 15,\n          align: 'top'\n        });\n         \n            }\n            google.maps.event.addDomListener(window, 'load', init);\n\n\n\n           function showMaxZoom(e) {\n             maxZoomService.getMaxZoomAtLatLng(e.latLng, function(response) {\n               if (response.status !== google.maps.MaxZoomStatus.OK) {\n                 infoWindow.setContent('Error in MaxZoomService');\n               } else {\n                 infoWindow.setContent(\n                     'The maximum zoom at this location is: ' + response.zoom);\n               }\n               infoWindow.setPosition(e.latLng);\n               infoWindow.open(map);\n             });\n           }\n            function draw_flight_path(latlng) {\n                if(last_latlng == undefined) {\n                    last_latlng = latlng;\n                }\n                flight_path = new google.maps.Polyline({\n                    path: [last_latlng, latlng],\n                    strokeColor: \"#FFFF00\",\n                    strokeOpacity: 1.0,\n                    strokeWeight: 2\n                });\n                last_latlng = latlng;\n                flight_path.setMap(map);\n            };\n\n            function get_latest_position() {\n                $.getJSON('http://open-notify-api.herokuapp.com/iss-now.json?callback=?', function(data, status) {\n                    position = data.iss_position;\n var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n// $.getJSON('https://api.wheretheiss.at/v1/satellites/25544/', function(data, status) {\n\n                    var latlng = new google.maps.LatLng(position.latitude, position.longitude);\n                    map.setCenter(latlng);\n                    marker.setPosition(latlng);\n                    marker.setTitle(\"Position: \"+latlng);\n                    var mycon = \"ISSI<br>Lat:\"+position.latitude+\"<br>Long\"+ position.longitude\n                    var myinfowindow = new google.maps.InfoWindow({\n                        content: mycon\n                    });\n marker.addListener('click', function() {\n    myinfowindow.open(map, marker);\n  });\n\n                    draw_flight_path(latlng);\n                    \n                });\n            };\n            setInterval(get_latest_position, 5000);\n        </script>\n    </head>\n    <body>\n        <div id=\"map\"/>\n    </body>\n</html>\n",
         "output": "str",
         "x": 280,
         "y": 80,
@@ -56,12 +56,13 @@
         "url": "http://open-notify-api.herokuapp.com/iss-now.json",
         "tls": "",
         "x": 250,
-        "y": 140,
+        "y": 160,
         "wires": [
             [
                 "a501d5e7.8edf48",
                 "5d519b9c.c8d30c",
-                "416cdd81.39bbac"
+                "d9ea91db.ade6",
+                "3c93a124.f3ea2e"
             ]
         ]
     },
@@ -73,8 +74,8 @@
         "active": false,
         "console": "false",
         "complete": "payload",
-        "x": 490.5,
-        "y": 141.5,
+        "x": 240,
+        "y": 120,
         "wires": []
     },
     {
@@ -88,8 +89,8 @@
         "repeat": "10",
         "crontab": "",
         "once": false,
-        "x": 78.5,
-        "y": 139.25,
+        "x": 70,
+        "y": 160,
         "wires": [
             [
                 "ba373d25.7cf34"
@@ -109,8 +110,8 @@
         "storeOutMessages": false,
         "fwdInMessages": false,
         "templateScope": "local",
-        "x": 670,
-        "y": 80,
+        "x": 490,
+        "y": 40,
         "wires": [
             []
         ]
@@ -163,22 +164,6 @@
         "x": 680,
         "y": 200,
         "wires": []
-    },
-    {
-        "id": "416cdd81.39bbac",
-        "type": "function",
-        "z": "26c6186e.20805",
-        "name": "LATLON",
-        "func": "\nmsg.latitude = msg.payload.iss_position.latitude;\nmsg.longitude = msg.payload.iss_position.longitude;\n\nmsg.payload = \"\"+msg.latitude+\",\"+msg.longitude;\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "x": 160,
-        "y": 240,
-        "wires": [
-            [
-                "3c93a124.f3ea2e"
-            ]
-        ]
     },
     {
         "id": "9d02e649.0b5058",
@@ -250,7 +235,7 @@
         "allDevices": false,
         "allApplications": false,
         "allDeviceTypes": true,
-        "allEvents": true,
+        "allEvents": false,
         "allCommands": false,
         "allFormats": true,
         "qos": "0",
@@ -261,7 +246,9 @@
                 "312e8a2c.8c4536",
                 "3d6075db.2f626a",
                 "fb8fc89d.3bd798",
-                "ca4a7db3.1f5968"
+                "ca4a7db3.1f5968",
+                "be265edc.5b90c8",
+                "f8b7adb5.91c52"
             ]
         ]
     },
@@ -270,7 +257,7 @@
         "type": "function",
         "z": "26c6186e.20805",
         "name": "CheckArea",
-        "func": "//Lat = Y Long = X\n/*\nbb is the bounding box, (ix,iy) are its top-left coordinates, and (ax,ay) its bottom-right coordinates. p is the point and (x,y) its coordinates.\n*/\nfunction checkPos(lat,lon,topleftlat,topleftlon,bottomrightlat,bottomrightlon,box)\n{\n    msg.inbox = box;\n  \n  //  node.warn(\"X topleftlon \"+topleftlon+\"  <= lon \"+lon+ \" res = \"+(   topleftlon <= lon   ))\n  //  node.warn(\"X lon \"+lon+\"  <= bottomrightlon \"+bottomrightlon+ \" res = \"+(  lon <= bottomrightlon)  )\n\nif( topleftlon <= lon && lon <= bottomrightlon ) {\n    // Point is in bounding box\n\n \n //node.warn(\" ISS in the area (\"+box+\").. candle ON\")  \nreturn true;\n\n}else{\n// node.warn(\"ISS not in the area  (\"+box+\")... candle OFF\")  \n return  false;\n\n\n}\nreturn  false;\n}\n\n \n  r0LatTl= 85\n  r0LngTl=-150\n\n  r0LatBr= -60\n  r0LngBr= -120\n\n  r1LatTl=  85\n  r1LngTl=-100.\n\n  r1LatBr= -60\n  r1LngBr= -70\n\n\n  r2LatTl=  85\n  r2LngTl= -50\n\n  r2LatBr= -60\n  r2LngBr= -10\n\n  r3LatTl=  85\n  r3LngTl= 10\n\n  r3LatBr= 85\n  r3LngBr= 40\n  \n  r4LatTl= 85\n  r4LngTl= 90\n\n  r4LatBr= -60\n  r4LngBr= 130\n\n/*\n\nlatitude\n\n-50.50472391191916\n\nlongitude\n\n-126.35910070188285\n\n\n\nlatitude = -50.5047239119191\n\nlongitude= -126.35910070188285\n\nmsg.inarea = false;\n node.warn(\"check\")\nres =checkPos(latitude ,longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box 1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n  */  \n\nmsg.inarea = false;\nres =checkPos(msg.latitude ,msg.longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n\n\nres =checkPos(msg.latitude ,msg.longitude,r1LatTl,r1LngTl,r1LatBr,r1LngBr,\"box 2\");\nmsg.inarea = res;\nif(res)\n    return msg;\n    \n \nres =checkPos(msg.latitude ,msg.longitude,r2LatTl,r2LngTl,r2LatBr,r2LngBr,\"box 3\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\nres =checkPos(msg.latitude ,msg.longitude,r3LatTl,r3LngTl,r3LatBr,r3LngBr,\"box 4\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\n\nres =checkPos(msg.latitude ,msg.longitude,r4LatTl,r4LngTl,r4LatBr,r4LngBr,\"box 5\");\nmsg.inarea = res;\nif(res)\n    return msg; \n    \nmsg.inbox = \"No area\";    \nreturn msg;",
+        "func": "//Lat = Y Long = X\n/*\nbb is the bounding box, (ix,iy) are its top-left coordinates, and (ax,ay) its bottom-right coordinates. p is the point and (x,y) its coordinates.\n*/\nfunction checkPos(lat,lon,topleftlat,topleftlon,bottomrightlat,bottomrightlon,box)\n{\n    msg.inbox = box;\n  \n  //  node.warn(\"X topleftlon \"+topleftlon+\"  <= lon \"+lon+ \" res = \"+(   topleftlon <= lon   ))\n  //  node.warn(\"X lon \"+lon+\"  <= bottomrightlon \"+bottomrightlon+ \" res = \"+(  lon <= bottomrightlon)  )\n\nif( topleftlon <= lon && lon <= bottomrightlon ) {\n    // Point is in bounding box\n\n \n //node.warn(\" ISS in the area (\"+box+\").. candle ON\")  \nreturn true;\n\n}else{\n// node.warn(\"ISS not in the area  (\"+box+\")... candle OFF\")  \n return  false;\n\n\n}\nreturn  false;\n}\n\n \nmsg.latitude = msg.payload.iss_position.latitude;\nmsg.longitude = msg.payload.iss_position.longitude;\n\n  r0LatTl= 85\n  r0LngTl=-150\n\n  r0LatBr= -60\n  r0LngBr= -120\n\n  r1LatTl=  85\n  r1LngTl=-100.\n\n  r1LatBr= -60\n  r1LngBr= -70\n\n\n  r2LatTl=  85\n  r2LngTl= -50\n\n  r2LatBr= -60\n  r2LngBr= -10\n\n  r3LatTl=  85\n  r3LngTl= 10\n\n  r3LatBr= 85\n  r3LngBr= 40\n  \n  r4LatTl= 85\n  r4LngTl= 90\n\n  r4LatBr= -60\n  r4LngBr= 130\n\n/*\n\nlatitude\n\n-50.50472391191916\n\nlongitude\n\n-126.35910070188285\n\n\n\nlatitude = -50.5047239119191\n\nlongitude= -126.35910070188285\n\nmsg.inarea = false;\n node.warn(\"check\")\nres =checkPos(latitude ,longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box 1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n  */  \n\nmsg.inarea = false;\nres =checkPos(msg.latitude ,msg.longitude,r0LatTl,r0LngTl,r0LatBr,r0LngBr,\"box1\");\nmsg.inarea = res;\nif(res)\n    return msg;\n\n\nres =checkPos(msg.latitude ,msg.longitude,r1LatTl,r1LngTl,r1LatBr,r1LngBr,\"box 2\");\nmsg.inarea = res;\nif(res)\n    return msg;\n    \n \nres =checkPos(msg.latitude ,msg.longitude,r2LatTl,r2LngTl,r2LatBr,r2LngBr,\"box 3\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\nres =checkPos(msg.latitude ,msg.longitude,r3LatTl,r3LngTl,r3LatBr,r3LngBr,\"box 4\");\nmsg.inarea = res;\nif(res)\n    return msg;   \n\n\nres =checkPos(msg.latitude ,msg.longitude,r4LatTl,r4LngTl,r4LatBr,r4LngBr,\"box 5\");\nmsg.inarea = res;\nif(res)\n    return msg; \n    \nmsg.inbox = \"No\";    \nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 150,
@@ -290,9 +277,9 @@
         "server": "smtp.gmail.com",
         "port": "465",
         "secure": true,
-        "name": "yourname@gmail.com",
+        "name": "yourmail@gmail.com , mvk4ibm@gmail.com",
         "dname": "",
-        "x": 1120,
+        "x": 1190,
         "y": 340,
         "wires": []
     },
@@ -301,7 +288,7 @@
         "type": "function",
         "z": "26c6186e.20805",
         "name": "IfIss is in Area send email",
-        "func": "\n    msg.topic = \"ISS update from YOU\"\n    msg.payload= \"Hello from Node-RED ISS is in Area\";\n    return msg;",
+        "func": "\n    msg.topic = \"ISS update for YOU\"\n    msg.payload= \"Hello from Node-RED ISS is in Area with the SPEED of x Km/H and traveled  \"+global.get(\"distance\")+ \" km\";\n    return msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 850,
@@ -364,7 +351,7 @@
         "z": "26c6186e.20805",
         "name": "",
         "pauseType": "delay",
-        "timeout": "5",
+        "timeout": "2",
         "timeoutUnits": "seconds",
         "rate": "1",
         "nbRateUnits": "1",
@@ -486,7 +473,7 @@
         "type": "function",
         "z": "26c6186e.20805",
         "name": "Red",
-        "func": "var newmsg ={}\nnewmsg.payload = msg.payload.candleRR\nreturn newmsg;",
+        "func": "var newmsg ={}\nnewmsg.payload = msg.payload.candleRR\nnewmsg.topic =\"Red\";\nreturn newmsg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1010,
@@ -502,7 +489,7 @@
         "type": "function",
         "z": "26c6186e.20805",
         "name": "Green",
-        "func": "msg.payload = msg.payload.candleGG\nreturn msg;",
+        "func": "msg.payload = msg.payload.candleGG\nmsg.topic =\"Green\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1010,
@@ -518,7 +505,7 @@
         "type": "function",
         "z": "26c6186e.20805",
         "name": "Blue",
-        "func": "msg.payload = msg.payload.candleBB\nreturn msg;",
+        "func": "msg.payload = msg.payload.candleBB\nmsg.topic =\"Blue\";\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "x": 1010,
@@ -616,7 +603,7 @@
         "crontab": "",
         "once": false,
         "x": 80,
-        "y": 660,
+        "y": 580,
         "wires": [
             [
                 "186cff3f.348491"
@@ -732,11 +719,11 @@
         "type": "ui_text",
         "z": "26c6186e.20805",
         "group": "20bfbb42.404ad4",
-        "order": 2,
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "",
-        "label": "In Area",
+        "label": "In Area?",
         "format": "{{msg.inbox}}",
         "layout": "row-spread",
         "x": 680,
@@ -781,7 +768,7 @@
         "z": "26c6186e.20805",
         "name": "",
         "group": "20bfbb42.404ad4",
-        "order": 0,
+        "order": 6,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -823,11 +810,223 @@
         "wires": []
     },
     {
+        "id": "be265edc.5b90c8",
+        "type": "function",
+        "z": "26c6186e.20805",
+        "name": "Counter",
+        "func": "var newmsg ={}\nnewmsg.payload = msg.payload.value\nreturn newmsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1020,
+        "y": 600,
+        "wires": [
+            [
+                "db723816.207f78"
+            ]
+        ]
+    },
+    {
+        "id": "db723816.207f78",
+        "type": "ui_text",
+        "z": "26c6186e.20805",
+        "group": "daf4cba9.67cf",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Counter",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1220,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "d9ea91db.ade6",
+        "type": "function",
+        "z": "26c6186e.20805",
+        "name": "Sale LatLong",
+        "func": "\nmsg.latitude = msg.payload.iss_position.latitude;\nmsg.longitude = msg.payload.iss_position.longitude;\n//msg.payload = []//\n//msg.payload =msg.latitude;\n//msg.topic=\"Lat\";\nnode.send(msg)\nmsg.topic=\"Lon\";\nmsg.payload =msg.longitude;\n//msg.payload[1] =msg.longitude;\n//\"\"+msg.latitude+\",\"+msg.longitude;\nglobal.set(\"oldlatitude\",global.get(\"latitude\"));\nglobal.set(\"oldlongitude\",global.get(\"longitude\"));\n\nglobal.set(\"latitude\",msg.latitude)\nglobal.set(\"longitude\",msg.longitude)\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 140,
+        "wires": [
+            [
+                "46c6ed39.548b94",
+                "ff6e3185.fa535"
+            ]
+        ]
+    },
+    {
+        "id": "f8b7adb5.91c52",
+        "type": "function",
+        "z": "26c6186e.20805",
+        "name": "Time",
+        "func": "function unixTime(unixtime) {\n\n    var u = new Date(unixtime);\n\n      return u.getUTCFullYear() +\n        '-' + ('0' + u.getUTCMonth()).slice(-2) +\n        '-' + ('0' + u.getUTCDate()).slice(-2) + \n        ' ' + ('0' + u.getUTCHours()).slice(-2) +\n        ':' + ('0' + u.getUTCMinutes()).slice(-2) +\n        ':' + ('0' + u.getUTCSeconds()).slice(-2) +\n        '.' + (u.getUTCMilliseconds() / 1000).toFixed(3).slice(2, 5) \n    };\n    var newmsg ={}\nnewmsg.payload = unixTime(parseInt(msg.payload.ts))\nreturn newmsg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1010,
+        "y": 560,
+        "wires": [
+            [
+                "e015ab14.b31aa8"
+            ]
+        ]
+    },
+    {
+        "id": "e015ab14.b31aa8",
+        "type": "ui_text",
+        "z": "26c6186e.20805",
+        "group": "daf4cba9.67cf",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Msg Time",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1220,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "dd06dee5.fd2ba8",
+        "type": "ui_button",
+        "z": "26c6186e.20805",
+        "name": "",
+        "group": "20bfbb42.404ad4",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Turn Candle Blue",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "\"off\"",
+        "payloadType": "str",
+        "topic": "",
+        "x": 90,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "46c6ed39.548b94",
+        "type": "function",
+        "z": "26c6186e.20805",
+        "name": "Distance",
+        "func": "function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {\n  var R = 6371; // Radius of the earth in km\n  var dLat = deg2rad(lat2-lat1);  // deg2rad below\n  var dLon = deg2rad(lon2-lon1); \n  var a = \n    Math.sin(dLat/2) * Math.sin(dLat/2) +\n    Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * \n    Math.sin(dLon/2) * Math.sin(dLon/2)\n    ; \n  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); \n  var d = R * c; // Distance in km\n  return d;\n}\n\nfunction deg2rad(deg) {\n  return deg * (Math.PI/180)\n}\nlat=global.get(\"latitude\");\nlon=global.get(\"longitude\");\nolat=global.get(\"oldlatitude\");\nolon=global.get(\"oldlongitude\");\n\n\ndistance =getDistanceFromLatLonInKm(olat,olon,lat,lon)\n//node.warn(speed)\nmsg.payload = distance.toFixed(2);\nmsg.distance = distance;\nglobal.set(\"distance\",distance);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 680,
+        "y": 80,
+        "wires": [
+            [
+                "46f10254.6bff3c",
+                "c18ae789.ee2538"
+            ]
+        ]
+    },
+    {
+        "id": "46f10254.6bff3c",
+        "type": "ui_text",
+        "z": "26c6186e.20805",
+        "group": "20bfbb42.404ad4",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Distance in Km( 10Sec)",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 930,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "ff6e3185.fa535",
+        "type": "ui_chart",
+        "z": "26c6186e.20805",
+        "name": "",
+        "group": "20bfbb42.404ad4",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "Longitude",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "10",
+        "removeOlderPoints": "",
+        "removeOlderUnit": "60",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 687.2222222222222,
+        "y": 123.88888888888889,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "18275630.54574a",
+        "type": "ui_text",
+        "z": "26c6186e.20805",
+        "group": "20bfbb42.404ad4",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Speed in Km/H",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 900,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "c18ae789.ee2538",
+        "type": "function",
+        "z": "26c6186e.20805",
+        "name": "Calulate SPEED",
+        "func": "// Home work! Calulate the speed in Km/H of the ISS\n// based on the distance \n//msg.distance = IIS traveld in 10 Sec\n\nmsg.payload = \"???\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 700,
+        "y": 40,
+        "wires": [
+            [
+                "18275630.54574a"
+            ]
+        ]
+    },
+    {
         "id": "d26ced6e.7c9c9",
         "type": "ui_group",
         "z": "",
         "name": "ISS Area",
         "tab": "5c11d200.e9e4e4",
+        "order": 1,
         "disp": true,
         "width": "12"
     },
@@ -837,6 +1036,7 @@
         "z": "",
         "name": "ISS Infos",
         "tab": "5c11d200.e9e4e4",
+        "order": 2,
         "disp": true,
         "width": "6"
     },
@@ -846,6 +1046,7 @@
         "z": "",
         "name": "FromPI",
         "tab": "5c11d200.e9e4e4",
+        "order": 3,
         "disp": true,
         "width": "6"
     },
